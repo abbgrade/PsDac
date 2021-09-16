@@ -7,11 +7,11 @@ requires Configuration
 [System.IO.FileInfo] $global:PsDacManifest = "$global:PsDacStage\PsDac.psd1"
 [System.IO.DirectoryInfo] $global:PsDacInstallDirectory = Join-Path $env:PSModulePath.Split(';')[0] 'PsDac' $global:PsDacVersion
 
-task PsDac.Publish -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs {
+task PsDac.Build -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs {
 	exec { dotnet publish $PSScriptRoot\..\src\PsDac -c $Configuration }
 }
 
-task PsDac.Import -Jobs PsDac.Publish, {
+task PsDac.Import -Jobs PsDac.Build, {
     Import-Module $global:PsDacManifest.FullName
 }
 
@@ -23,6 +23,14 @@ task PsDac.Uninstall -If { $global:PsDacInstallDirectory.Exists } -Jobs {
 	Remove-Item -Recurse -Force $global:PsDacInstallDirectory.FullName
 }
 
-task PsDac.Install -If { -Not $global:PsDacInstallDirectory.Exists -Or $Force } -Jobs PsDac.Publish, {
+task PsDac.Install -If { -Not $global:PsDacInstallDirectory.Exists -Or $Force } -Jobs PsDac.Build, {
 	Get-ChildItem $global:PsDacStage | Copy-Item -Destination $global:PsDacInstallDirectory.FullName -Recurse -Force
+}
+
+# Synopsis: Publish the module to PSGallery.
+task PsDac.Publish -Jobs PsDac.Install, {
+
+	assert ( $Configuration -eq 'Release' )
+
+	Publish-Module -Name PsDac -NuGetApiKey $NuGetApiKey
 }
