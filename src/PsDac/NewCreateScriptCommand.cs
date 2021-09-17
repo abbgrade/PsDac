@@ -1,5 +1,6 @@
-﻿using Microsoft.SqlServer.Dac;
+using Microsoft.SqlServer.Dac;
 using System.Management.Automation;
+using System.Collections;
 
 namespace PsDac
 {
@@ -15,12 +16,9 @@ namespace PsDac
         [ValidateNotNullOrEmpty()]
         public DacPackage Package { get; set; }
 
-        [Parameter(
-            Position = 1,
-            Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
+        [Parameter()]
         [ValidateNotNullOrEmpty()]
-        public string DatabaseName { get; set; }
+        public string DatabaseName { get; set; } = "master";
 
         [Parameter()]
         public SwitchParameter CreateNewDatabase { get; set; }
@@ -30,6 +28,12 @@ namespace PsDac
 
         [Parameter()]
         public SwitchParameter CommentOutSetVarDeclarations { get; set; }
+
+        [Parameter()]
+        public SwitchParameter DoNotEvaluateSqlCmdVariables { get; set; }
+
+        [Parameter()]
+        public Hashtable Variables { get; set; } = new Hashtable();
 
     protected override void ProcessRecord()
         {
@@ -42,8 +46,15 @@ namespace PsDac
                 ScriptDatabaseCollation = false,
                 ScriptDatabaseCompatibility = false,
                 CommentOutSetVarDeclarations = CommentOutSetVarDeclarations.IsPresent,
-                IncludeTransactionalScripts = IncludeTransactionalScripts.IsPresent
+                IncludeTransactionalScripts = IncludeTransactionalScripts.IsPresent,
+                DoNotEvaluateSqlCmdVariables = DoNotEvaluateSqlCmdVariables.IsPresent
             };
+
+            foreach (DictionaryEntry variable in Variables)
+                options.SetVariable(
+                    variable.Key.ToString(),
+                    variable.Value.ToString()
+                );
 
             WriteObject(DacServices.GenerateCreateScript(package: Package, targetDatabaseName: DatabaseName, options: options));
         }
