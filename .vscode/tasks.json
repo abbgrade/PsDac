@@ -81,7 +81,7 @@
             "label": "install",
             "type": "shell",
             "command": "Invoke-Build",
-            "args": ["install", "-Configuration", "Release"],
+            "args": ["install", "-Configuration", "Release", "-Force"],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,
