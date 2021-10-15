@@ -30,7 +30,10 @@ TODO
 
 ## Changelog
 
-TODO
+### 0.2.0
+
+- Added variable handling to `New-DacCreateScript` command.
+- Added `Get-DacTableValuedFunction` command.
 
 ## Development
 
@@ -39,9 +42,19 @@ TODO
 - Build automation is based on [InvokeBuild](https://github.com/nightroman/Invoke-Build)
 - Test automation is based on [Pester](https://pester.dev)
 - Commands are named based on [Approved Verbs for PowerShell Commands](https://docs.microsoft.com/de-de/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands)
+- This project uses [gitflow](https://github.com/nvie/gitflow).
 
 ### Build
 
 The build scripts require InvokeBuild. If it is not installed, install it with the command `Install-Module InvokeBuild -Scope CurrentUser`.
 
 You can build the module using the VS Code build task or with the command `Invoke-Build Build`.
+
+### Release
+
+1. Create release branch using gitflow.
+2. Update version number in psd1 file.
+3. Update changelog in this readme file.
+4. Uninstall old versions.
+5. publish release using `Invoke-Build Publish`.
+6. finish release using gitflow.
