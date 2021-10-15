@@ -30,7 +30,10 @@ TODO
 
 ## Changelog
 
-TODO
+### 0.2.0
+
+- Added variable handling to `New-DacCreateScript` command.
+- Added `Get-DacTableValuedFunction` command.
 
 ## Development
 
