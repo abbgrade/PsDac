@@ -46,3 +46,12 @@ TODO
 The build scripts require InvokeBuild. If it is not installed, install it with the command `Install-Module InvokeBuild -Scope CurrentUser`.
 
 You can build the module using the VS Code build task or with the command `Invoke-Build Build`.
+
+### Release
+
+1. Create release branch using gitflow.
+2. Update version number in psd1 file.
+3. Update changelog in this readme file.
+4. Uninstall old versions.
+5. publish release using `Invoke-Build Publish`.
+6. finish release using gitflow.
