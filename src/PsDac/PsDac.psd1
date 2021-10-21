@@ -9,6 +9,7 @@
     PowerShellVersion = '7.0'
 
     CmdletsToExport = @(
+        'Connect-Service',
         'Get-Column',
         'Get-DataType',
         'Get-ForeignKey',
@@ -24,6 +25,7 @@
         'Get-View',
         'Import-Model',
         'Import-Package',
+        'Install-Package',
         'New-CreateScript',
         'Remove-Schema',
         'Set-Package',
