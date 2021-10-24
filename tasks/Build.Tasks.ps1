@@ -5,15 +5,30 @@ requires Configuration
 ).ModuleVersion
 [System.IO.FileInfo] $global:PsDacStage = "$PSScriptRoot\..\src\PsDac\bin\$Configuration\net5.0\publish"
 [System.IO.FileInfo] $global:PsDacManifest = "$global:PsDacStage\PsDac.psd1"
+[System.IO.DirectoryInfo] $global:PsDacDoc = "$PSScriptRoot\..\docs"
 [System.IO.DirectoryInfo] $global:PsDacInstallDirectory = Join-Path $env:PSModulePath.Split(';')[0] 'PsDac' $global:PsDacVersion
 
-task PsDac.Build -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs {
-	exec { dotnet publish $PSScriptRoot\..\src\PsDac -c $Configuration }
+task PsDac.Build.Dll -Jobs {
+    exec { dotnet publish $PSScriptRoot\..\src\PsDac -c $Configuration }
 }
 
-task PsDac.Import -Jobs PsDac.Build, {
+task PsDac.Import -Jobs PsDac.Build.Dll, {
     Import-Module $global:PsDacManifest.FullName
 }
+
+task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists } -Jobs PsDac.Import, {
+    New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -ErrorAction Stop
+}
+
+task PsDac.Doc -Jobs PsDac.Doc.Init, PsDac.Import, {
+    Update-MarkdownHelp -Path $global:PsDacDoc
+}
+
+task PsDac.Build.Help -Jobs PsDac.Doc, {
+    New-ExternalHelp -Path $global:PsDacDoc -OutputPath $global:PsDacStage\en-US\
+}
+
+task PsDac.Build -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs PsDac.Build.Dll, PsDac.Build.Help
 
 task PsDac.Clean {
 	remove $PSScriptRoot\..\src\PsDac\bin, $PSScriptRoot\..\src\PsDac\obj
