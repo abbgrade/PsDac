@@ -1,6 +1,12 @@
 <#
 .Synopsis
 	Build script <https://github.com/nightroman/Invoke-Build>
+
+.Example
+    # Add doc templates for new command.
+    # BE CAREFUL! Existing documents will be overwritten and must be discarded using git.
+    Invoke-Build PsDac.Doc.Init -Force
+
 #>
 
 param(
@@ -13,6 +19,7 @@ param(
 )
 
 . $PSScriptRoot\tasks\Build.Tasks.ps1
+. $PSScriptRoot\tasks\Testdata.Tasks.ps1
 
 task Build -Jobs PsDac.Build
 task Clean -Jobs PsDac.Clean
