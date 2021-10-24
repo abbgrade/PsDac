@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacColumn
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets columns of a table.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Name
-{{ Fill Name Description }}
+Specifies a filter on the column name.
 
 ```yaml
 Type: String
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Table
-{{ Fill Table Description }}
+Specifies the table to get the columns from. The ObjectType must be Table.
 
 ```yaml
 Type: TSqlObject
@@ -70,6 +70,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
+
+ObjectType will be Column.
 
 ## NOTES
 

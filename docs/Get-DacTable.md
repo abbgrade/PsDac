@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacTable
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the tables of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the tables from.
 
 ```yaml
 Type: TSqlModel

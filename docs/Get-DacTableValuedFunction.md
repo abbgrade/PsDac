@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacTableValuedFunction
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the table values functions of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the table valued functions from.
 
 ```yaml
 Type: TSqlModel

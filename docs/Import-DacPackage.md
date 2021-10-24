@@ -8,7 +8,7 @@ schema: 2.0.0
 # Import-DacPackage
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Imports the package from a dacpac file.
 
 ## SYNTAX
 
@@ -47,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+Specifies the path to the dacpac to load the package from.
 
 ```yaml
 Type: FileInfo

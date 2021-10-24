@@ -8,7 +8,7 @@ schema: 2.0.0
 # Import-DacModel
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Imports a model from a dacpac file.
 
 ## SYNTAX
 
@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+Specifies the path to the dacpac to load the model from.
 
 ```yaml
 Type: FileInfo

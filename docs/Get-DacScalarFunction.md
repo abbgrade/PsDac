@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacScalarFunction
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the scalar functions of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the scalar functions from.
 
 ```yaml
 Type: TSqlModel

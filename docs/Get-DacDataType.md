@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacDataType
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the data type of a column.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Column
-{{ Fill Column Description }}
+Specifies the column to get the data type from. The ObjectType must be Column.
 
 ```yaml
 Type: TSqlObject

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacForeignKey
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the foreign keys of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the foreign keys from.
 
 ```yaml
 Type: TSqlModel

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Test-DacModel
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Validates a model.
 
 ## SYNTAX
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to test.
 
 ```yaml
 Type: TSqlModel

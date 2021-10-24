@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-DacPackage
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Updates the model of a package.
 
 ## SYNTAX
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to set.
 
 ```yaml
 Type: TSqlModel

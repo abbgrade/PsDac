@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-DacCreateScript
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Generates a script to create a database from a package.
 
 ## SYNTAX
 

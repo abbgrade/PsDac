@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacProcedure
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the procedures of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the procedures from.
 
 ```yaml
 Type: TSqlModel

@@ -1,4 +1,4 @@
-﻿using Microsoft.SqlServer.Dac.Model;
+using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Data;
 using System.Linq;

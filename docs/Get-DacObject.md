@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacObject
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the objects of a model.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+Specifies the model to get the objects from.
 
 ```yaml
 Type: TSqlModel

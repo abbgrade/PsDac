@@ -25,7 +25,7 @@ task PsDac.Doc -Jobs PsDac.Doc.Init, PsDac.Import, {
 }
 
 task PsDac.Build.Help -Jobs PsDac.Doc, {
-    New-ExternalHelp -Path $global:PsDacDoc -OutputPath $global:PsDacStage\en-US\
+    New-ExternalHelp -Path $global:PsDacDoc -OutputPath $global:PsDacStage\en-US\ -Force
 }
 
 task PsDac.Build -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs PsDac.Build.Dll, PsDac.Build.Help
