@@ -20,7 +20,7 @@ task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists } -Jobs PsDac.Import, {
     New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -ErrorAction Stop
 }
 
-task PsDac.Doc -Jobs PsDac.Doc.Init, PsDac.Import, {
+task PsDac.Doc -Jobs PsDac.Import, {
     Update-MarkdownHelp -Path $global:PsDacDoc
 }
 
