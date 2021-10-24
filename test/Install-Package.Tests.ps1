@@ -1,7 +1,7 @@
 
 BeforeDiscovery {
     $Script:PsDacModule = Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -PassThru -ErrorAction Continue
-    $Script:PsSqlClient = Import-Module PsSqlClient -PassThru
+    $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
 }
 
 Describe 'Install-DacPackage' -Skip:( -Not $Script:PsDacModule ) {
