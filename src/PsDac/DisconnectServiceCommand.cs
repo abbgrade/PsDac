@@ -5,7 +5,7 @@ using System.Management.Automation;
 namespace PsDac
 {
     [Cmdlet(VerbsCommunications.Disconnect, "Service")]
-    [OutputType(typeof(DacPackage))]
+    [OutputType(typeof(void))]
     public class DisconnectServiceCommand : PSCmdlet
     {
 

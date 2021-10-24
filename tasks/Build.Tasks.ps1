@@ -16,8 +16,8 @@ task PsDac.Import -Jobs PsDac.Build.Dll, {
     Import-Module $global:PsDacManifest.FullName
 }
 
-task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists } -Jobs PsDac.Import, {
-    New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -ErrorAction Stop
+task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists -Or $Force } -Jobs PsDac.Import, {
+    New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -Force:$Force -ErrorAction Stop
 }
 
 task PsDac.Doc -Jobs PsDac.Import, {

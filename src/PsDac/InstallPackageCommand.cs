@@ -5,7 +5,7 @@ using System.Management.Automation;
 namespace PsDac
 {
     [Cmdlet(VerbsLifecycle.Install, "Package")]
-    [OutputType(typeof(DacPackage))]
+    [OutputType(typeof(void))]
     public class InstallPackageCommand : PSCmdlet
     {
         [Parameter(

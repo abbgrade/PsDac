@@ -5,8 +5,8 @@ using System.Management.Automation;
 
 namespace PsDac
 {
-    [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = "ConnectionString")]
-    [OutputType(typeof(DacPackage))]
+    [Cmdlet(VerbsCommunications.Connect, "Service")]
+    [OutputType(typeof(DacServices))]
     public class ConnectServiceCommand : PSCmdlet
     {
         [Parameter(
