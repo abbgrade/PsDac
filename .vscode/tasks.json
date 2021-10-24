@@ -44,7 +44,10 @@
             "group": "build",
             "type": "shell",
             "command": "Invoke-Build",
-            "args": ["build"],
+            "args": [
+                "Build",
+                "-Force"
+            ],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,
@@ -55,7 +58,7 @@
             "label": "clean",
             "type": "shell",
             "command": "Invoke-Build",
-            "args": ["clean"],
+            "args": ["Clean"],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,
@@ -81,7 +84,7 @@
             "label": "install",
             "type": "shell",
             "command": "Invoke-Build",
-            "args": ["install", "-Configuration", "Release", "-Force"],
+            "args": ["Install", "-Configuration", "Release", "-Force"],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,
@@ -92,7 +95,7 @@
             "label": "uninstall",
             "type": "shell",
             "command": "Invoke-Build",
-            "args": ["uninstall"],
+            "args": ["Uninstall"],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,

@@ -14,11 +14,12 @@ param(
 
 . $PSScriptRoot\tasks\Build.Tasks.ps1
 
-task Build -Jobs PsDac.Publish
+task Build -Jobs PsDac.Build
 task Clean -Jobs PsDac.Clean
+task Doc -Jobs PsDac.Doc
 task Install -Jobs PsDac.Install
-task Uninstall -Jobs PsDac.Uninstall
 task Publish -Jobs PsDac.Publish
+task Uninstall -Jobs PsDac.Uninstall
 
 # Synopsis: Default task.
 task . Build

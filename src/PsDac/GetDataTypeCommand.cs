@@ -1,4 +1,4 @@
-﻿using Microsoft.SqlServer.Dac.Model;
+using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Data;
 using System.Linq;
@@ -36,7 +36,7 @@ namespace PsDac
             base.ProcessRecord();
 
             if (Column.ObjectType.Name != "Column") {
-                throw new System.ArgumentException("Invalid Column type", Column.ObjectType.Name);
+                throw new ArgumentException("Invalid Column type", Column.ObjectType.Name);
             }
 
             var type = Column.GetReferenced(Microsoft.SqlServer.Dac.Model.Column.DataType, DacQueryScopes.All).Single();

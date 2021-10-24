@@ -5,7 +5,7 @@ using System.Collections;
 namespace PsDac
 {
     [Cmdlet(VerbsCommon.New, "CreateScript")]
-    [OutputType(typeof(DacPackage))]
+    [OutputType(typeof(string))]
     public class NewCreateScriptCommand : PSCmdlet
     {
         [Parameter(
