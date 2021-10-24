@@ -13,6 +13,7 @@ param(
 )
 
 . $PSScriptRoot\tasks\Build.Tasks.ps1
+. $PSScriptRoot\tasks\Testdata.Tasks.ps1
 
 task Build -Jobs PsDac.Build
 task Clean -Jobs PsDac.Clean
