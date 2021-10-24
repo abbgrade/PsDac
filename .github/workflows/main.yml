@@ -20,6 +20,7 @@ jobs:
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module InvokeBuild -ErrorAction Stop
+          Install-Module platyPs -ErrorAction Stop
 
       - name: Create build
         shell: pwsh
