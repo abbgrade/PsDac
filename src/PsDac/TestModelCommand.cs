@@ -1,11 +1,11 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Management.Automation;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace PsDac
 {
     [Cmdlet(VerbsDiagnostic.Test, "Model")]
-    [OutputType(typeof(TSqlObject))]
+    [OutputType(typeof(DacModelMessage))]
     public class TestModelCommand : PSCmdlet
     {
         [Parameter(

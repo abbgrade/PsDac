@@ -76,3 +76,5 @@ ObjectType will be Column.
 ## NOTES
 
 ## RELATED LINKS
+
+[TSqlObject](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlobject)

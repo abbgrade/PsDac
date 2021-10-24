@@ -146,8 +146,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.SqlServer.Dac.DacPackage
+### String
 
 ## NOTES
 
 ## RELATED LINKS
+
+[DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)

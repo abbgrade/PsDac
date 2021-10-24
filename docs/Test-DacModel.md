@@ -69,8 +69,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.SqlServer.Dac.Model.TSqlObject
+### Microsoft.SqlServer.Dac.Model.DacModelMessage
 
 ## NOTES
 
 ## RELATED LINKS
+
+[TSqlModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlmodel)
+[DacModelMessage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.dacmodelmessage)
