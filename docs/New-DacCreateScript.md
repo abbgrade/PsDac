@@ -14,8 +14,7 @@ Generates a script to create a database from a package.
 
 ```
 New-DacCreateScript [-Package] <DacPackage> [-DatabaseName <String>] [-CreateNewDatabase]
- [-IncludeTransactionalScripts] [-CommentOutSetVarDeclarations] [-DoNotEvaluateSqlCmdVariables]
- [-Variables <Hashtable>] [<CommonParameters>]
+ [-IncludeTransactionalScripts] [-CommentOutSetVarDeclarations] [-Variables <Hashtable>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -67,21 +66,6 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DoNotEvaluateSqlCmdVariables
-{{ Fill DoNotEvaluateSqlCmdVariables Description }}
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
