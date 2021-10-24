@@ -3,7 +3,7 @@ requires Configuration
 [System.Version] $global:PsDacVersion = New-Object System.Version (
 	Import-PowerShellDataFile $PSScriptRoot\..\src\PsDac\PsDac.psd1
 ).ModuleVersion
-[System.IO.FileInfo] $global:PsDacStage = "$PSScriptRoot\..\src\PsDac\bin\$Configuration\net5.0\publish"
+[System.IO.DirectoryInfo] $global:PsDacStage = "$PSScriptRoot\..\src\PsDac\bin\$Configuration\net5.0\publish"
 [System.IO.FileInfo] $global:PsDacManifest = "$global:PsDacStage\PsDac.psd1"
 [System.IO.DirectoryInfo] $global:PsDacDoc = "$PSScriptRoot\..\docs"
 [System.IO.DirectoryInfo] $global:PsDacInstallDirectory = Join-Path $env:PSModulePath.Split(';')[0] 'PsDac' $global:PsDacVersion
@@ -20,7 +20,7 @@ task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists } -Jobs PsDac.Import, {
     New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -ErrorAction Stop
 }
 
-task PsDac.Doc -Jobs PsDac.Doc.Init, PsDac.Import, {
+task PsDac.Doc -Jobs PsDac.Import, {
     Update-MarkdownHelp -Path $global:PsDacDoc
 }
 
