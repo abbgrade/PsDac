@@ -6,10 +6,11 @@
     Author = 'Steffen Kampmann'
     Copyright = '(c) 2021 Steffen Kampmann. Alle Rechte vorbehalten.'
     Description = 'PsDac connects DacFx and PowerShell. It gives you PowerShell Cmdlets with the power of Microsoft.SqlServer.DacFx.'
-    PowerShellVersion = '7.0'
+    PowerShellVersion = '5.0'
 
     CmdletsToExport = @(
         'Connect-Service',
+        'Disconnect-Service',
         'Get-Column',
         'Get-DataType',
         'Get-ForeignKey',
