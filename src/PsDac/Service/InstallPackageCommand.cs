@@ -6,7 +6,7 @@ namespace PsDac
 {
     [Cmdlet(VerbsLifecycle.Install, "Package")]
     [OutputType(typeof(void))]
-    public class InstallPackageCommand : PSCmdlet
+    public class InstallPackageCommand : ClientCommand
     {
         [Parameter(
             Position = 0,
@@ -17,22 +17,11 @@ namespace PsDac
         [ValidateNotNullOrEmpty()]
         public DacPackage Package { get; set; }
 
-        [Parameter()]
-        public DacServices Service { get; set; } = ConnectServiceCommand.Service;
-
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true
         )]
         public string DatabaseName { get; set; }
-
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
-
-            if (Service == null)
-                throw new PSArgumentNullException(nameof(Service), $"run Connect-DacService");
-        }
 
         protected override void ProcessRecord()
         {
