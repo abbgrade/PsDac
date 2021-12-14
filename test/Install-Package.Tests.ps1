@@ -1,13 +1,16 @@
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
-BeforeDiscovery {
-    $Script:PsDacModule = Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -PassThru -ErrorAction Continue
-    $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
-}
-
-Describe 'Install-DacPackage' -Skip:( -Not $Script:PsDacModule ) {
-
+Describe 'Install-DacPackage'{
     BeforeDiscovery {
-        [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+        $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
+        $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.6.0 -PassThru -ErrorAction Continue
+
+        # [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+        [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac"
+    }
+
+    BeforeAll {
+        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
     }
 
     Context 'DacPac' -Skip:( -Not $Script:DacPacFile.Exists ) {
@@ -16,17 +19,17 @@ Describe 'Install-DacPackage' -Skip:( -Not $Script:PsDacModule ) {
             $Script:DacPac = Import-DacPackage $Script:DacPacFile
         }
 
-        Context 'Server' -Skip:( -Not ( $Script:PsSqlClient ) ) {
+        Context 'Server' -Skip:( -Not ( $Script:PsSqlClient -And $Script:PsSmo ) ) {
 
             BeforeAll {
-                $Script:SqlServerInstance = '(LocalDb)\MSSQLLocalDB'
-                $Script:SqlServerConnection = Connect-TSqlInstance -DataSource $Script:SqlServerInstance
+                $Script:DataSource = '(LocalDb)\MSSQLLocalDB'
+                $Script:SqlConnection = Connect-TSqlInstance -DataSource $Script:DataSource
             }
 
             Context 'DacService' {
 
                 BeforeAll {
-                    $Script:DacService = Connect-DacService -DataSource $Script:SqlServerInstance
+                    $Script:DacService = Connect-DacService -DataSource $Script:DataSource
                 }
 
                 AfterAll {
@@ -38,15 +41,22 @@ Describe 'Install-DacPackage' -Skip:( -Not $Script:PsDacModule ) {
                 Context 'Database' {
 
                     BeforeEach {
-                        [string] $Script:DatabaseName = New-Guid
+                        [string] $Script:DatabaseName = ( [string](New-Guid) ).Substring(0, 8)
                     }
 
                     AfterEach {
-                        Invoke-TSqlCommand "DROP DATABASE [$Script:DatabaseName]"
+                        Invoke-TSqlCommand "DROP DATABASE [$Script:DatabaseName];"
                     }
 
                     It 'Creates database objects of a dacpac' {
                         Install-DacPackage $Script:DacPac -DatabaseName $Script:DatabaseName
+
+                        Invoke-TSqlCommand "USE [$Script:DatabaseName]" -Connection $Script:SqlConnection
+                        $Script:SmoConnection = Connect-SmoInstance -Connection $Script:SqlConnection
+
+                        Get-SmoTable -Name MyTable | Should -Not -BeNullOrEmpty
+
+                        Disconnect-SmoInstance -Instance $Script:SmoConnection
                     }
                 }
             }

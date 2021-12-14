@@ -50,7 +50,6 @@ namespace PsDac
             }
             catch (Exception ex)
             {
-
                 WriteError(new ErrorRecord(
                     exception: ex,
                     errorId: ex.GetType().Name,
@@ -58,6 +57,8 @@ namespace PsDac
                     targetObject: null
                 ));
             }
+
+            WriteObject(Service);
         }
     }
 }

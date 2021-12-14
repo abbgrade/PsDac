@@ -3,3 +3,4 @@ obj
 coverage.xml
 testResults.xml
 */*/.vs
+test/WideWorldImporters-Full.bak

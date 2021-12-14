@@ -35,6 +35,14 @@ TODO
 - Added variable handling to `New-DacCreateScript` command.
 - Added `Get-DacTableValuedFunction` command.
 
+### 0.3.0
+
+- Added `Connect-DacService` command.
+- Added `Disconnect-DacService` command.
+- Added `Install-DacPackage` command.
+- Added output to all commands.
+- Added documentation.
+
 ## Development
 
 - This is a [Portable Module](https://docs.microsoft.com/de-de/powershell/scripting/dev-cross-plat/writing-portable-modules?view=powershell-7) based on [PowerShell Standard](https://github.com/powershell/powershellstandard) and [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).

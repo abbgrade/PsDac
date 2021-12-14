@@ -13,7 +13,7 @@ Installs the package content to a database.
 ## SYNTAX
 
 ```
-Install-DacPackage [-Package] <DacPackage> [-Service <DacServices>] -DatabaseName <String> [<CommonParameters>]
+Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
