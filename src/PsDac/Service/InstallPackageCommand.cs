@@ -23,11 +23,16 @@ namespace PsDac
         )]
         public string DatabaseName { get; set; }
 
+        [Parameter()]
+        public ObjectType[] ExcludeObjectTypes { get; set; }
+
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
 
-            Service.Deploy(package: Package, targetDatabaseName: DatabaseName);
+            var options = new DacDeployOptions();
+            options.ExcludeObjectTypes = ExcludeObjectTypes;
+            Service.Deploy(package: Package, targetDatabaseName: DatabaseName, options: options);
         }
     }
 }

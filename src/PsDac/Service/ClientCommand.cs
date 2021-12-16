@@ -50,7 +50,7 @@ namespace PsDac
             WriteError(new ErrorRecord(
                 exception: new Exception($"{e.Message}"),
                 errorId: e.Message.Number.ToString(),
-                errorCategory: ErrorCategory.OpenError,
+                errorCategory: ErrorCategory.NotSpecified,
                 targetObject: null
             ));
         }
