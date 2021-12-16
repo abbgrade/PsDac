@@ -4,16 +4,27 @@ Describe 'Connect-DacService' {
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module PsSqlTestServer -ErrorAction Stop
     }
 
-    It 'Creates a service by datasource' {
-        $service = Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB' -ErrorAction Stop
-        $service | Should -Not -BeNullOrEmpty
-    }
+    Context 'Test Database' {
 
-    It 'Creates a service by connection string' {
-        $service = Connect-DacService -ConnectionString 'Server=(LocalDb)\MSSQLLocalDB' -ErrorAction Stop
-        $service | Should -Not -BeNullOrEmpty
-    }
+        BeforeAll {
+            $Script:TestServer = New-SqlServer
+        }
 
+        AfterAll {
+            $Script:TestServer | Remove-SqlServer
+        }
+
+        It 'Creates a service by datasource' {
+            $service = Connect-DacService -DataSource $Script:TestServer.DataSource -ErrorAction Stop
+            $service | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Creates a service by connection string' {
+            $service = Connect-DacService -ConnectionString $Script:TestServer.ConnectionString -ErrorAction Stop
+            $service | Should -Not -BeNullOrEmpty
+        }
+    }
 }
