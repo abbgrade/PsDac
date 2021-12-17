@@ -1,6 +1,6 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
-Describe 'Get-DacTable' {
+Describe 'Get-DacSchema' {
 
     BeforeDiscovery {
         [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
@@ -16,15 +16,16 @@ Describe 'Get-DacTable' {
                 $Script:Model = Import-DacModel -Path $Script:DacPacFile
             }
 
-            It 'Returns all tables of a model' {
-                $tables = $Script:Model | Get-DacTable
-                $tables | Should -Not -BeNullOrEmpty
-                $tables.Count | Should -BeGreaterThan 5
+            It 'Returns all schemas of a model' {
+                $schemas = $Script:Model | Get-DacSchema
+                $schemas | Should -Not -BeNullOrEmpty
+                $schemas.Count | Should -BeGreaterThan 3
             }
 
-            It 'Returns a table of a model by name' {
-                $table = $Script:Model | Get-DacTable -Name '[Application].[Cities]'
-                $table | Should -Not -BeNullOrEmpty
+            It 'Returns all schemas of a model by name' {
+                $schema = $Script:Model | Get-DacSchema -Name 'Application'
+                $schema | Should -Not -BeNullOrEmpty
+                $schema.Name | Should -Be '[Application]'
             }
         }
     }

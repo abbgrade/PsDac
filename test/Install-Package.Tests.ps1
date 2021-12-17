@@ -5,6 +5,17 @@ Describe 'Install-DacPackage' {
         $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
         $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.6.0 -PassThru -ErrorAction Continue
         $Script:PsSqlTestServer = Import-Module PsSqlTestServer -MinimumVersion 0.2.1 -PassThru -ErrorAction Continue
+
+        [System.IO.FileInfo] $Script:TestDbDacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac"
+        [System.IO.FileInfo] $Script:WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+
+        if ( -Not $Script:TestDbDacPacFile.Exists ) {
+            Write-Warning "Skip tests with testdb.dacpac requirement."
+        }
+
+        if ( -Not $Script:WwiDacPacFile.Exists ) {
+            Write-Warning "Skip tests with WideWorldImporters.dacpac requirement."
+        }
     }
 
     BeforeAll {
@@ -44,11 +55,6 @@ Describe 'Install-DacPackage' {
                     Invoke-TSqlCommand "DROP DATABASE [$Script:DatabaseName];"
                 }
 
-                BeforeDiscovery {
-                    [System.IO.FileInfo] $Script:TestDbDacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac"
-                    [System.IO.FileInfo] $Script:WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
-                }
-
                 Context 'testdb DacPac' -Skip:( -Not $Script:TestDbDacPacFile.Exists ) {
 
                     BeforeAll {
@@ -67,7 +73,7 @@ Describe 'Install-DacPackage' {
                     }
                 }
 
-                Context 'wwi DacPac' -Skip:( $true -Or -Not $Script:WwiDacPacFile.Exists ) {
+                Context 'wwi DacPac' -Skip:( -Not $Script:WwiDacPacFile.Exists ) {
 
                     BeforeAll {
                         $Script:DacPac = Import-DacPackage $Script:WwiDacPacFile

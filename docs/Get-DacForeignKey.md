@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacForeignKey
 
 ## SYNOPSIS
-Gets the foreign keys of a model.
+Returns the foreign keys of a model.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-DacForeignKey [-Model] <TSqlModel> [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides a foreign key object to access it's definition.
 
 ## EXAMPLES
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+Specifies a filter on the key name.
 
 ```yaml
 Type: String
