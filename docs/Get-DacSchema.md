@@ -17,16 +17,18 @@ Get-DacSchema [-Model] <TSqlModel> [[-Name] <String>] [-Scope <DacQueryScopes>] 
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides a schema object to access it's definition.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacSchema -Name 'Application'
+fwd-i-search: _
+Schema      Name          ObjectType
+------      ----          ----------
+Application [Application] Microsoft.SqlServer.Dac.Model.ModelTypeClass
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -46,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+Specifies a filter on the schema name.
 
 ```yaml
 Type: String
@@ -61,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -Scope
-{{ Fill Scope Description }}
+Specifies a filter on the scope.
 
 ```yaml
 Type: DacQueryScopes
