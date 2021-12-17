@@ -2,12 +2,15 @@
 
 Describe 'Connect-DacService' {
 
-    BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
-        Import-Module PsSqlTestServer -ErrorAction Stop
+    BeforeDiscovery {
+        $Script:PsSqlTestServer = Import-Module PsSqlTestServer -PassThru -ErrorAction Continue
     }
 
-    Context 'Test Database' {
+    BeforeAll {
+        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+    }
+
+    Context 'Test Database' -Skip:( -Not $Script:PsSqlTestServer ) {
 
         BeforeAll {
             $Script:TestServer = New-SqlServer
