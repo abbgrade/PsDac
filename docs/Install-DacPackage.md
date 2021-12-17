@@ -18,7 +18,7 @@ Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-ExcludeObjec
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Executes the Deploy operation from DacFx.
 
 ## EXAMPLES
 
@@ -78,7 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExcludeObjectTypes
-{{ Fill ExcludeObjectTypes Description }}
+List of ObjectType, that must not be installed.
 
 ```yaml
 Type: ObjectType[]
@@ -111,3 +111,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 [DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+[ObjectType](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.objecttype)
