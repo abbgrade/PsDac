@@ -36,6 +36,7 @@
     PrivateData = @{
 
         PSData = @{
+            Prerelease = 'beta'
             Category = 'Databases'
             Tags = @('dacfx', 'dacpac', 'sqlserver')
             LicenseUri = 'https://github.com/abbgrade/PsDac/blob/main/LICENSE'
