@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacDataType
 
 ## SYNOPSIS
-Gets the data type of a column.
+Returns the data type of a column.
 
 ## SYNTAX
 
@@ -17,16 +17,24 @@ Get-DacDataType [-Column] <TSqlObject> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides the datatype and properties to a column.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '[Application].[Cities]' | Get-DacColumn -Name '[Application].[Cities].[CityID]' | Get-DacDataType
 
-{{ Add example description here }}
+
+Name       : Int
+Length     : 0
+Precision  : 0
+Scale      : 0
+IsNullable : False
+IsMax      : False
+Collation  :
+_detail    : Microsoft.SqlServer.Dac.Model.TSqlObject
+```
 
 ## PARAMETERS
 
