@@ -4,17 +4,18 @@ Describe 'Install-DacPackage' {
     BeforeDiscovery {
         $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
         $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.6.0 -PassThru -ErrorAction Continue
+        $Script:PsSqlTestServer = Import-Module PsSqlTestServer -MinimumVersion 0.2.1 -PassThru -ErrorAction Continue
     }
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Server' -Skip:( -Not ( $Script:PsSqlClient -And $Script:PsSmo ) ) {
+    Context 'Server' -Skip:( -Not ( $Script:PsSqlTestServer -And $Script:PsSqlClient -And $Script:PsSmo ) ) {
 
         BeforeAll {
             $Script:TestServer = New-SqlServer
-            $Script:SqlConnection = Connect-TSqlInstance -DataSource $Script:TestServer.DataSource
+            $Script:SqlConnection = Connect-TSqlInstance -ConnectionString $Script:TestServer.ConnectionString
         }
 
         AfterAll {
@@ -24,7 +25,7 @@ Describe 'Install-DacPackage' {
         Context 'DacService' {
 
             BeforeAll {
-                $Script:DacService = Connect-DacService -DataSource $Script:TestServer.DataSource
+                $Script:DacService = Connect-DacService -ConnectionString $Script:TestServer.ConnectionString -ErrorAction Stop
             }
 
             AfterAll {
@@ -66,14 +67,14 @@ Describe 'Install-DacPackage' {
                     }
                 }
 
-                Context 'wwi DacPac' -Skip:( -Not $Script:WwiDacPacFile.Exists ) {
+                Context 'wwi DacPac' -Skip:( $true -Or -Not $Script:WwiDacPacFile.Exists ) {
 
                     BeforeAll {
                         $Script:DacPac = Import-DacPackage $Script:WwiDacPacFile
                     }
 
                     It 'Creates database objects of a dacpac' {
-                        Install-DacPackage $Script:DacPac -DatabaseName $Script:DatabaseName -ExcludeObjectTypes Logins -Verbose
+                        Install-DacPackage $Script:DacPac -DatabaseName $Script:DatabaseName #-ExcludeObjectTypes Logins, Files, Filegroups -Verbose
 
                         Invoke-TSqlCommand "USE [$Script:DatabaseName]" -Connection $Script:SqlConnection
                         $Script:SmoConnection = Connect-SmoInstance -Connection $Script:SqlConnection
