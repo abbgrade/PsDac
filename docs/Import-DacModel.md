@@ -18,16 +18,20 @@ Import-DacModel [-Path] <FileInfo> [-ModelStorageType <DacSchemaModelStorageType
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides a model object to access it's definition.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac
 
-{{ Add example description here }}
+Version           : Sql130
+EngineVersion     : 13
+IsScriptBacked    : False
+DisplayServices   : Microsoft.SqlServer.Dac.Model.SqlDisplayServices
+CollationComparer : Microsoft.SqlServer.Dac.Model.SqlModelCollationComparer
+```
 
 ## PARAMETERS
 
