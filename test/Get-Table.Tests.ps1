@@ -16,13 +16,13 @@ Describe 'Get-DacTable' {
                 $Script:Model = Import-DacModel -Path $Script:DacPacFile
             }
 
-            It 'Returns all tables' {
+            It 'Returns all tables of a model' {
                 $tables = $Script:Model | Get-DacTable
                 $tables | Should -Not -BeNullOrEmpty
                 $tables.Count | Should -BeGreaterThan 5
             }
 
-            It 'Returns a table by name' {
+            It 'Returns a table of a model by name' {
                 $table = $Script:Model | Get-DacTable -Name '[Application].[Cities]'
                 $table | Should -Not -BeNullOrEmpty
             }
