@@ -13,11 +13,12 @@ Installs the package content to a database.
 ## SYNTAX
 
 ```
-Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-Service <DacServices>] [<CommonParameters>]
+Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-ExcludeObjectTypes <ObjectType[]>]
+ [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Executes the Deploy operation from DacFx.
 
 ## EXAMPLES
 
@@ -76,6 +77,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ExcludeObjectTypes
+List of ObjectType, that must not be installed.
+
+```yaml
+Type: ObjectType[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -95,3 +111,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 [DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+[ObjectType](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.objecttype)

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacTable
 
 ## SYNOPSIS
-Gets the tables of a model.
+Returns the tables of a model.
 
 ## SYNTAX
 
@@ -17,16 +17,18 @@ Get-DacTable [-Model] <TSqlModel> [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides a table object to access it's definition.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '[Application].[Cities]'
 
-{{ Add example description here }}
+Schema      Name                   ObjectType
+------      ----                   ----------
+Application [Application].[Cities] Microsoft.SqlServer.Dac.Model.ModelTypeClass
+```
 
 ## PARAMETERS
 
@@ -46,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+Specifies a filter on the table name.
 
 ```yaml
 Type: String

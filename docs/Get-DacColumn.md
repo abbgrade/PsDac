@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-DacColumn
 
 ## SYNOPSIS
-Gets columns of a table.
+Returns columns of a table.
 
 ## SYNTAX
 
@@ -17,16 +17,18 @@ Get-DacColumn [-Table] <TSqlObject> [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Provides a column object to access it's definition.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '[Application].[Cities]' | Get-DacColumn -Name '[Application].[Cities].[CityID]'
 
-{{ Add example description here }}
+Schema      Name                            ObjectType
+------      ----                            ----------
+Application [Application].[Cities].[CityID] Microsoft.SqlServer.Dac.Model.ModelTypeClass
+```
 
 ## PARAMETERS
 

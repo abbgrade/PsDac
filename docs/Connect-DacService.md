@@ -23,7 +23,8 @@ Connect-DacService [-DataSource] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Creates a DacServices instance, that can be used by commands.
+Unfortunately, the parameters are not checked while connecting, but while usage.
 
 ## EXAMPLES
 
@@ -38,6 +39,7 @@ Creates a dac service for localdb.
 
 ### -ConnectionString
 Specifies the connection string to use.
+The DataSource, Hostname or Instance must be specified as Server.
 
 ```yaml
 Type: String
