@@ -1,5 +1,6 @@
 bin
 obj
+publish
 coverage.xml
 testResults.xml
 */*/.vs
