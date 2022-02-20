@@ -19,8 +19,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module InvokeBuild -ErrorAction Stop
-          Install-Module platyPs -ErrorAction Stop
+          Install-Module InvokeBuild, platyPs -ErrorAction Stop
 
       - name: Create build
         shell: pwsh
@@ -52,7 +51,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module PsSqlClient -ErrorAction Stop
+          Install-Module PsSqlClient, PsSqlTestServer -ErrorAction Stop
 
       - name: Run tests
         shell: pwsh
