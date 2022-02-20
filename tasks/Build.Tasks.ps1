@@ -27,9 +27,9 @@ task Import -Jobs Build.Dll, {
 }
 
 # Synopsis: Initialize the documentation.
-task Doc.Init -If { -Not $DocumentationDirectory.Exists -or $ForceDocInit } -Jobs Import, {
-	New-Item $DocumentationDirectory -ItemType Directory
-    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationDirectory -Force:ForceDocInit -ErrorAction Stop
+task Doc.Init -If { $DocumentationDirectory.Exists -eq $false -Or $ForceDocInit -eq $true } -Jobs Import, {
+	New-Item $DocumentationDirectory -ItemType Directory -ErrorAction SilentlyContinue
+    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationDirectory -Force:$ForceDocInit -ErrorAction Stop
 }
 
 # Synopsis: Update the markdown documentation.
