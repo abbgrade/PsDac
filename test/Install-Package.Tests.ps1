@@ -19,7 +19,7 @@ Describe 'Install-DacPackage' {
     }
 
     BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
     Context 'Server' -Skip:( -Not ( $Script:PsSqlTestServer -And $Script:PsSqlClient -And $Script:PsSmo ) ) {

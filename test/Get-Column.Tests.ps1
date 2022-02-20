@@ -7,7 +7,7 @@ Describe 'Get-DacColumn' {
     }
 
     BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
     Context 'DacPac' -Skip:( -Not $Script:DacPacFile.Exists ) {
