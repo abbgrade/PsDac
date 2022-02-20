@@ -17,9 +17,16 @@ param(
 	[ValidateSet('Debug', 'Release')]
 	[string] $Configuration = 'Debug',
 
+	[string] $NuGetApiKey = $env:nuget_apikey,
+
+	# Overwrite published versions
+	[switch] $ForcePublish,
+
+    # Add doc templates for new command.
 	[switch] $ForceDocInit,
 
-	[string] $NuGetApiKey = $env:nuget_apikey
+	# Version suffix to prereleases
+	[int] $BuildNumber
 )
 
 $ModuleName = 'PsDac'
