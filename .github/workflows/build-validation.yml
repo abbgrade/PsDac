@@ -19,8 +19,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module InvokeBuild -ErrorAction Stop
-          Install-Module platyPs -ErrorAction Stop
+          Install-Module InvokeBuild, platyPs -ErrorAction Stop
 
       - name: Create build
         shell: pwsh
@@ -29,7 +28,7 @@ jobs:
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:
-          path: src/PsDac/bin/Debug/net5.0/publish
+          path: publish
           name: ${{ matrix.os }}-build
   test:
     needs: build
@@ -45,14 +44,14 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v2
         with:
-          path: src/PsDac/bin/Debug/net5.0/publish
+          path: publish
           name: ${{ matrix.os }}-build
 
       - name: Install test dependencies
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module PsSqlClient -ErrorAction Stop
+          Install-Module PsSqlClient, PsSqlTestServer -ErrorAction Stop
 
       - name: Run tests
         shell: pwsh
