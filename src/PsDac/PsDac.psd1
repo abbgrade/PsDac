@@ -14,6 +14,7 @@
         'Get-Column',
         'Get-DataType',
         'Get-ForeignKey',
+        'Get-Model',
         'Get-Object',
         'Get-PartitionFunction',
         'Get-PartitionScheme',
