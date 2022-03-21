@@ -31,6 +31,7 @@ param(
 
 $ModuleName = 'PsDac'
 
+. $PSScriptRoot\tasks\Dependency.Tasks.ps1
 . $PSScriptRoot\tasks\Build.Tasks.ps1
 . $PSScriptRoot\tasks\Testdata.Tasks.ps1
 
