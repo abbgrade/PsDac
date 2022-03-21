@@ -26,19 +26,24 @@ task Import -Jobs Build.Dll, {
     Import-Module $Global:Manifest
 }
 
+# Synopsis: Import platyPs.
+task Import.platyPs -Jobs {
+	Import-Module platyPs
+}
+
 # Synopsis: Initialize the documentation.
-task Doc.Init -If { $DocumentationDirectory.Exists -eq $false -Or $ForceDocInit -eq $true } -Jobs Import, {
+task Doc.Init -If { $DocumentationDirectory.Exists -eq $false -Or $ForceDocInit -eq $true } -Jobs Import, Import.platyPs, {
 	New-Item $DocumentationDirectory -ItemType Directory -ErrorAction SilentlyContinue
     New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationDirectory -Force:$ForceDocInit -ErrorAction Stop
 }
 
 # Synopsis: Update the markdown documentation.
-task Doc.Update -Jobs Import, Doc.Init, {
+task Doc.Update -Jobs Import, Import.platyPs, Doc.Init, {
     Update-MarkdownHelp -Path $DocumentationDirectory
 }
 
 # Synopsis: Build the XML help based on the markdown documentation.
-task Build.Help -Jobs Doc.Update, {
+task Build.Help -Jobs Import.platyPs, Doc.Update, {
     New-ExternalHelp -Path $DocumentationDirectory -OutputPath $ModulePublishDirectory\en-US\ -Force
 }
 
@@ -55,13 +60,14 @@ task Install -Jobs Build, {
 	$info = Import-PowerShellDataFile $Global:Manifest
 	$version = ([System.Version] $info.ModuleVersion)
 	$defaultModulePath = $env:PsModulePath -split ';' | Select-Object -First 1
+	Write-Verbose "install $ModuleName $version to $defaultModulePath"
 	$installPath = Join-Path $defaultModulePath $ModuleName $version.ToString()
 	New-Item -Type Directory $installPath -Force | Out-Null
 	Get-ChildItem $Global:Manifest.Directory | Copy-Item -Destination $installPath -Recurse -Force
 }
 
 # Synopsis: Publish the module to PSGallery.
-task Publish -Jobs Build, {
+task Publish -Jobs Clean, Build, {
 	if ( -Not $Global:PreRelease ) {
 		assert ( $Configuration -eq 'Release' )
 		Update-ModuleManifest -Path $Global:Manifest -Prerelease ''

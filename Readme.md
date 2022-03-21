@@ -34,6 +34,8 @@ See the [changelog](./CHANGELOG.md) file.
 
 ## Development
 
+[![.github/workflows/build-validation.yml](https://github.com/abbgrade/PsDac/actions/workflows/build-validation.yml/badge.svg?branch=develop)](https://github.com/abbgrade/PsDac/actions/workflows/build-validation.yml)
+
 - This is a [Portable Module](https://docs.microsoft.com/de-de/powershell/scripting/dev-cross-plat/writing-portable-modules?view=powershell-7) based on [PowerShell Standard](https://github.com/powershell/powershellstandard) and [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 - [VSCode](https://code.visualstudio.com) is recommended as IDE. [VSCode Tasks](https://code.visualstudio.com/docs/editor/tasks) are configured.
 - Build automation is based on [InvokeBuild](https://github.com/nightroman/Invoke-Build)
