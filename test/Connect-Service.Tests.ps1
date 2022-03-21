@@ -13,11 +13,11 @@ Describe 'Connect-DacService' {
     Context 'Test Database' -Skip:( -Not $Script:PsSqlTestServer ) {
 
         BeforeAll {
-            $Script:TestServer = New-SqlServer
+            $Script:TestServer = New-SqlTestInstance
         }
 
         AfterAll {
-            $Script:TestServer | Remove-SqlServer
+            $Script:TestServer | Remove-SqlTestInstance
         }
 
         It 'Creates a service by datasource' {
