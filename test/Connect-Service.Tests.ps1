@@ -17,7 +17,9 @@ Describe 'Connect-DacService' {
         }
 
         AfterAll {
-            $Script:TestServer | Remove-SqlTestInstance
+            if ( $Script:TestServer ) {
+                $Script:TestServer | Remove-SqlTestInstance
+            }
         }
 
         It 'Creates a service by datasource' {
