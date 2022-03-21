@@ -30,18 +30,7 @@ TODO
 
 ## Changelog
 
-### 0.2.0
-
-- Added variable handling to `New-DacCreateScript` command.
-- Added `Get-DacTableValuedFunction` command.
-
-### 0.3.0
-
-- Added `Connect-DacService` command.
-- Added `Disconnect-DacService` command.
-- Added `Install-DacPackage` command.
-- Added output to all commands.
-- Added documentation.
+See the [changelog](./CHANGELOG.md) file.
 
 ## Development
 
@@ -51,7 +40,9 @@ TODO
 - Test automation is based on [Pester](https://pester.dev)
 - Documentation is based on [platyPs](https://github.com/PowerShell/platyPS)
 - Commands are named based on [Approved Verbs for PowerShell Commands](https://docs.microsoft.com/de-de/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands)
-- This project uses [gitflow](https://github.com/nvie/gitflow).
+- This project uses [git-flow](https://github.com/nvie/gitflow).
+- This project uses [keep a changelog](https://keepachangelog.com/en/1.0.0/).
+- This project uses [PsBuildTasks](https://github.com/abbgrade/PsBuildTasks).
 
 ### Build
 
