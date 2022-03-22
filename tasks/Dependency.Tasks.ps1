@@ -6,6 +6,6 @@ task InstallTestDependencies -Jobs {
     Install-Module PsSqlLocalDb -Scope CurrentUser -ErrorAction Stop -Verbose -AllowPrerelease
     Install-Module PsSqlTestServer -Scope CurrentUser -ErrorAction Stop -Verbose -AllowPrerelease
     Install-Module PsSqlClient -Scope CurrentUser -ErrorAction Stop -Verbose -MaximumVersion 0.4.0
-}
+}, Testdata.Create
 
 task InstallReleaseDependencies -Jobs {}
