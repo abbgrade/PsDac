@@ -33,6 +33,7 @@ task TestData.DacPac.WWI.Create -If { -Not $WideWorldImportersDacPac.Exists } -J
     # exec { dotnet build "$SqlServerSamplesDirectory\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\WideWorldImporters.sqlproj" /p:NetCoreBuild=true }
 
     assert $WideWorldImportersProject
+    Write-Verbose "WideWorldImportersProject: $WideWorldImportersProject"
 
     Invoke-MsBuild $WideWorldImportersProject
 
