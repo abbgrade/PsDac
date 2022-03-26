@@ -32,7 +32,7 @@ task TestData.DacPac.WWI.Create -If { -Not $WideWorldImportersDacPac.Exists } -J
     # # can be enabled if dotnet core build is public and working
     # exec { dotnet build "$SqlServerSamplesDirectory\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\WideWorldImporters.sqlproj" /p:NetCoreBuild=true }
 
-    # Import-Module Invoke-MsBuild
+    assert $WideWorldImportersProject
 
     Invoke-MsBuild $WideWorldImportersProject
 
