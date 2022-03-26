@@ -3,6 +3,7 @@ task InstallBuildDependencies -Jobs {
 }
 
 task InstallTestDependencies -Jobs {
+    Install-Module Pester -MinimumVersion '5.0.0'
     Install-Module PsSqlLocalDb -Scope CurrentUser -ErrorAction Stop -Verbose -AllowPrerelease
     Install-Module PsSqlTestServer -Scope CurrentUser -ErrorAction Stop -Verbose -AllowPrerelease
     Install-Module PsSqlClient -Scope CurrentUser -ErrorAction Stop -Verbose -MaximumVersion 0.4.0
