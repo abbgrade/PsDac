@@ -1,5 +1,5 @@
 
-[System.IO.DirectoryInfo] $SqlServerSamplesDirectory = "$PSScriptRoot\..\Test\sql-server-samples"
+[System.IO.DirectoryInfo] $SqlServerSamplesDirectory = "$PSScriptRoot\..\test\sql-server-samples"
 [string] $WwiSsdtRelativePath = 'samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt'
 [System.IO.DirectoryInfo] $WwiSsdtDirectory = Join-Path $SqlServerSamplesDirectory $WwiSsdtRelativePath
 [System.IO.FileInfo] $WideWorldImportersProject = Join-Path $SqlServerSamplesDirectory $WwiSsdtRelativePath "WideWorldImporters.sqlproj"
@@ -13,7 +13,7 @@ task Testdata.DacPac.WWI.AddSolution -If { -Not $SqlServerSamplesDirectory.Exist
     New-Item $SqlServerSamplesDirectory -ItemType Directory -ErrorAction Continue
 }
 
-task Testdata.DacPac.WWI.InitSolution -If { -Not ( Test-Path "$SqlServerSamplesDirectory\.git" ) } -Jobs Testdata.DacPac.WWI.AddSolution, {
+task Testata.DacPac.WWI.InitSolution -If { -Not ( Test-Path "$SqlServerSamplesDirectory\.git" ) } -Jobs Testdata.DacPac.WWI.AddSolution, {
     Push-Location $SqlServerSamplesDirectory
     exec { git init }
     exec { git remote add origin -f https://github.com/microsoft/sql-server-samples.git }
