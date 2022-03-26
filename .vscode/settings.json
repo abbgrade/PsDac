@@ -1,3 +1,9 @@
 {
-    "cSpell.language": "en"
+    "cSpell.language": "en",
+    "cSpell.words": [
+        "dacpac",
+        "sqlproj",
+        "Ssdt"
+    ],
+    "terminal.integrated.defaultProfile.linux": "pwsh"
 }
