@@ -25,12 +25,12 @@ Describe 'Install-DacPackage' {
     Context 'Server' -Skip:( -Not ( $Script:PsSqlTestServer -And $Script:PsSqlClient -And $Script:PsSmo ) ) {
 
         BeforeAll {
-            $Script:TestServer = New-SqlServer
+            $Script:TestServer = New-SqlTestInstance
             $Script:SqlConnection = Connect-TSqlInstance -ConnectionString $Script:TestServer.ConnectionString
         }
 
         AfterAll {
-            $Script:TestServer | Remove-SqlServer
+            $Script:TestServer | Remove-SqlTestInstance
         }
 
         Context 'DacService' {
