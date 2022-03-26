@@ -3,7 +3,7 @@
 Describe 'Install-DacPackage' {
     BeforeDiscovery {
         $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
-        $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.6.0 -PassThru -ErrorAction Continue
+        $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.4.0 -PassThru -ErrorAction Continue
         $Script:PsSqlTestServer = Import-Module PsSqlTestServer -MinimumVersion 0.2.1 -PassThru -ErrorAction Continue
 
         [System.IO.FileInfo] $Script:TestDbDacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac"
