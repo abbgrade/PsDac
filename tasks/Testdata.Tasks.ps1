@@ -24,7 +24,7 @@ task TestData.DacPac.WWI.CheckoutSolution -If { -Not $WwiSsdtDirectory.Exists } 
     Push-Location $SqlServerSamplesDirectory
     exec { git config core.sparseCheckout true }
     Set-Content .git/info/sparse-checkout $WwiSsdtRelativePath
-    exec { git pull --depth=1 origin master --verbose }
+    exec { git checkout master }
     Pop-Location
 }
 
@@ -32,7 +32,7 @@ task TestData.DacPac.WWI.Create -If { -Not $WideWorldImportersDacPac.Exists } -J
     # # can be enabled if dotnet core build is public and working
     # exec { dotnet build "$SqlServerSamplesDirectory\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\WideWorldImporters.sqlproj" /p:NetCoreBuild=true }
 
-    Import-Module Invoke-MsBuild
+    # Import-Module Invoke-MsBuild
 
     Invoke-MsBuild $WideWorldImportersProject
 
