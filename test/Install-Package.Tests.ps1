@@ -1,11 +1,7 @@
-#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }
 
 Describe 'Install-DacPackage' {
     BeforeDiscovery {
-        $Script:PsSqlClient = Import-Module PsSqlClient -PassThru -ErrorAction Continue
-        $Script:PsSmo = Import-Module PsSmo -MinimumVersion 0.4.0 -PassThru -ErrorAction Continue
-        $Script:PsSqlTestServer = Import-Module PsSqlTestServer -MinimumVersion 0.2.1 -PassThru -ErrorAction Continue
-
         [System.IO.FileInfo] $Script:TestDbDacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac"
         [System.IO.FileInfo] $Script:WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
 
@@ -22,7 +18,7 @@ Describe 'Install-DacPackage' {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Server' -Skip:( -Not ( $Script:PsSqlTestServer -And $Script:PsSqlClient -And $Script:PsSmo ) ) {
+    Context 'Server' {
 
         BeforeAll {
             $Script:TestServer = New-SqlTestInstance
