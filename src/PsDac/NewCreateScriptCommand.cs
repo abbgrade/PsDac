@@ -5,7 +5,7 @@ using System.Collections;
 namespace PsDac
 {
     [Cmdlet(VerbsCommon.New, "CreateScript")]
-    [OutputType(typeof(DacPackage))]
+    [OutputType(typeof(string))]
     public class NewCreateScriptCommand : PSCmdlet
     {
         [Parameter(
@@ -29,8 +29,10 @@ namespace PsDac
         [Parameter()]
         public SwitchParameter CommentOutSetVarDeclarations { get; set; }
 
+#if NEW
         [Parameter()]
         public SwitchParameter DoNotEvaluateSqlCmdVariables { get; set; }
+#endif
 
         [Parameter()]
         public Hashtable Variables { get; set; } = new Hashtable();
@@ -47,14 +49,21 @@ namespace PsDac
                 ScriptDatabaseCompatibility = false,
                 CommentOutSetVarDeclarations = CommentOutSetVarDeclarations.IsPresent,
                 IncludeTransactionalScripts = IncludeTransactionalScripts.IsPresent,
+#if NEW
                 DoNotEvaluateSqlCmdVariables = DoNotEvaluateSqlCmdVariables.IsPresent
+#endif
             };
 
             foreach (DictionaryEntry variable in Variables)
+            {
+#if NEW
                 options.SetVariable(
                     variable.Key.ToString(),
                     variable.Value.ToString()
                 );
+#endif
+                options.SqlCommandVariableValues.Add(key: variable.Key.ToString(), value: variable.Value.ToString());
+            }
 
             WriteObject(DacServices.GenerateCreateScript(package: Package, targetDatabaseName: DatabaseName, options: options));
         }

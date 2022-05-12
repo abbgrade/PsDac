@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "PowerShell cmdlets: pwsh",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "pwsh",
+            "args": [
+                "-NoExit",
+                "-NoProfile",
+                "-Command",
+                "Import-Module ${workspaceFolder}/bin/Debug/netcoreapp3.1/PsDac.psd1",
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "PowerShell cmdlets: powershell",
+            "type": "clr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "powershell",
+            "args": [
+                "-NoExit",
+                "-NoProfile",
+                "-Command",
+                "Import-Module ${workspaceFolder}/bin/Debug/netcoreapp3.1/PsDac.psd1",
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-﻿using Microsoft.SqlServer.Dac.Model;
+using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Data;
 using System.Linq;
@@ -20,7 +20,17 @@ namespace PsDac
 
         class ColumnInfo
         {
-            public SqlDataType Name { get; set; }
+            public ObjectIdentifier Identifier { get; set; }
+            public String Name { get {
+                if ( Identifier.Parts.Count == 1 ) {
+                    return Identifier.Parts[0];
+                }
+                if ( Identifier.Parts.Count == 2 && Identifier.Parts[0] == "sys" ) {
+                    return Identifier.Parts[1];
+                }
+                return Identifier.ToString();
+            } }
+            // public SqlDataType Name { get; set; }
             public int Length { get; set; }
             public int Precision { get; set; }
             public int Scale { get; set; }
@@ -36,14 +46,17 @@ namespace PsDac
             base.ProcessRecord();
 
             if (Column.ObjectType.Name != "Column") {
-                throw new System.ArgumentException("Invalid Column type", Column.ObjectType.Name);
+                throw new ArgumentException("Invalid Column type", Column.ObjectType.Name);
             }
 
             var type = Column.GetReferenced(Microsoft.SqlServer.Dac.Model.Column.DataType, DacQueryScopes.All).Single();
-            
+
+            WriteVerbose($"Found {type.Name}({type.ObjectType}) on column {Column.Name}({Column.ObjectType})");
+
             var dataType = new ColumnInfo
             {
-                Name =  type.GetProperty<SqlDataType>(DataType.SqlDataType),
+                Identifier = type.Name,
+                // Name = type.GetProperty<SqlDataType>(DataType.SqlDataType),
                 Length = Column.GetProperty<int>(Microsoft.SqlServer.Dac.Model.Column.Length),
                 Precision = Column.GetProperty<int>(Microsoft.SqlServer.Dac.Model.Column.Precision ),
                 Scale = Column.GetProperty<int>(Microsoft.SqlServer.Dac.Model.Column.Scale),
