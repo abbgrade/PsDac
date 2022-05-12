@@ -1,6 +1,6 @@
 @{
     RootModule = 'PsDac.dll'
-    ModuleVersion = '0.3.0'
+    ModuleVersion = '1.0.0'
     GUID = 'f69d5927-d9ef-48c9-b88c-fb2c5158d62c'
     DefaultCommandPrefix = 'Dac'
     Author = 'Steffen Kampmann'
