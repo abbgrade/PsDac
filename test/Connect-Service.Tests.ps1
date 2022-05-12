@@ -1,16 +1,12 @@
-#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }
 
 Describe 'Connect-DacService' {
-
-    BeforeDiscovery {
-        $Script:PsSqlTestServer = Import-Module PsSqlTestServer -PassThru -ErrorAction Continue
-    }
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Test Database' -Skip:( -Not $Script:PsSqlTestServer ) {
+    Context 'Test Database' {
 
         BeforeAll {
             $Script:TestServer = New-SqlTestInstance
