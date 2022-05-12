@@ -1,4 +1,5 @@
-﻿CREATE TABLE [dbo].[MyTable]
+CREATE TABLE [dbo].[MyTable]
 (
-	[Id] INT NOT NULL PRIMARY KEY
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Location] [sys].[geography] NULL
 )
