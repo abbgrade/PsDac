@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added output to all commands.
 - Added documentation.
 
+### Changed
+
+- Changed type of the Name property in `Get-DacDataType` output from SqlDataType to string.
+
+### Fixed
+
+- `Get-DacDataType` works for user defined types and CLI types.
+
 ## [0.2.0] - 2021-10-15
 
 ### Added
