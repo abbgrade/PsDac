@@ -72,7 +72,7 @@ Describe 'Install-DacPackage' {
                 Context 'wwi DacPac' -Skip:( -Not $Script:WwiDacPacFile.Exists ) {
 
                     BeforeAll {
-                        $Script:DacPac = Import-DacPackage $Script:WwiDacPacFile
+                        $Script:DacPac = Import-DacPackage -Path $Script:WwiDacPacFile
                     }
 
                     It 'Creates database objects of a dacpac' {
