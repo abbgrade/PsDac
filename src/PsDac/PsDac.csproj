@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>PsDac</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.DacFx" Version="160.6161.0" />
-    <PackageReference Include="System.Management.Automation" Version="7.0.8" />
+    <PackageReference Include="System.Management.Automation" Version="7.2.5" />
   </ItemGroup>
 
   <ItemGroup>
