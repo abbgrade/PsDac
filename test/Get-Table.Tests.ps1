@@ -1,30 +1,30 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
-Describe 'Get-DacTable' {
+param (
+    [System.IO.FileInfo] $DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+)
 
-    BeforeDiscovery {
-        [System.IO.FileInfo] $Global:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
-    }
+Describe Get-Table {
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'DacPac' -Skip:( -Not $Global:DacPacFile.Exists ) {
-        Context 'Model' {
+    Context DacPac -Skip:( -Not $DacPacFile.Exists ) {
+        Context Model {
             BeforeAll {
-                $Script:Model = Import-DacModel -Path $Global:DacPacFile
+                $Model = Import-DacModel -Path $DacPacFile
             }
 
             It 'Returns all tables of a model' {
-                $tables = $Script:Model | Get-DacTable
-                $tables | Should -Not -BeNullOrEmpty
-                $tables.Count | Should -BeGreaterThan 5
+                $Tables = $Model | Get-DacTable
+                $Tables | Should -Not -BeNullOrEmpty
+                $Tables.Count | Should -BeGreaterThan 5
             }
 
             It 'Returns a table of a model by name' {
-                $table = $Script:Model | Get-DacTable -Name '[Application].[Cities]'
-                $table | Should -Not -BeNullOrEmpty
+                $Table = $Model | Get-DacTable -Name '[Application].[Cities]'
+                $Table | Should -Not -BeNullOrEmpty
             }
         }
     }

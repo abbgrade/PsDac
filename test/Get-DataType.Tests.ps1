@@ -5,7 +5,7 @@ param (
     [System.IO.FileInfo] $WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
 )
 
-Describe 'Get-DacDataType' {
+Describe Get-DataType {
 
     BeforeDiscovery {
         if ( -Not $TestDbDacPacFile.Exists ) {
@@ -22,31 +22,31 @@ Describe 'Get-DacDataType' {
     }
 
     Context 'testdb DacPac' -Skip:( -Not $TestDbDacPacFile.Exists ) {
-        Context 'Model' {
+        Context Model {
 
             BeforeAll {
-                $Script:Model = Import-DacModel -Path $TestDbDacPacFile
+                $Model = Import-DacModel -Path $TestDbDacPacFile
             }
 
-            Context 'Table' {
+            Context Table {
                 BeforeAll {
-                    $Script:Table = $Script:Model | Get-DacTable -Name '[dbo].[MyTable]'
+                    $Table = $Model | Get-DacTable -Name '[dbo].[MyTable]'
                 }
 
                 Context 'geography Column' {
                     BeforeAll {
-                        $Script:Column = $Script:Table | Get-DacColumn -Name '[dbo].[MyTable].[Location]'
+                        $Column = $Table | Get-DacColumn -Name '[dbo].[MyTable].[Location]'
                     }
 
                     It 'Returns column info' {
-                        $type = $Script:Column | Get-DacDataType
-                        $type | Should -Not -BeNullOrEmpty
-                        $type.Name | Should -Be 'geography'
-                        $type.Length | Should -Be 0
-                        $type.Precision | Should -Be 0
-                        $type.Scale | Should -Be 0
-                        $type.IsNullable | Should -Be $true
-                        $type.IsMax | Should -Be $false
+                        $Type = $Column | Get-DacDataType
+                        $Type | Should -Not -BeNullOrEmpty
+                        $Type.Name | Should -Be 'geography'
+                        $Type.Length | Should -Be 0
+                        $Type.Precision | Should -Be 0
+                        $Type.Scale | Should -Be 0
+                        $Type.IsNullable | Should -Be $true
+                        $Type.IsMax | Should -Be $false
                     }
                 }
             }
@@ -54,66 +54,66 @@ Describe 'Get-DacDataType' {
     }
 
     Context 'wwi DacPac' -Skip:( -Not $WwiDacPacFile.Exists ) {
-        Context 'Model' {
+        Context Model {
             BeforeAll {
-                $Script:Model = Import-DacModel -Path $WwiDacPacFile
+                $Model = Import-DacModel -Path $WwiDacPacFile
             }
 
-            Context 'Table' {
+            Context Table {
                 BeforeAll {
-                    $Script:Table = $Script:Model | Get-DacTable -Name '[Purchasing].[PurchaseOrderLines]'
+                    $Table = $Model | Get-DacTable -Name '[Purchasing].[PurchaseOrderLines]'
                 }
 
                 Context 'INT Column' {
                     BeforeAll {
-                        $Script:Column = $Script:Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[PurchaseOrderLineID]'
+                        $Column = $Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[PurchaseOrderLineID]'
                     }
 
                     It 'Returns column info' {
-                        $type = $Script:Column | Get-DacDataType
-                        $type | Should -Not -BeNullOrEmpty
-                        $type.Name | Should -Be 'int'
-                        $type.Length | Should -Be 0
-                        $type.Precision | Should -Be 0
-                        $type.Scale | Should -Be 0
-                        $type.IsNullable | Should -Be $false
-                        $type.IsMax | Should -Be $false
+                        $Type = $Column | Get-DacDataType
+                        $Type | Should -Not -BeNullOrEmpty
+                        $Type.Name | Should -Be 'int'
+                        $Type.Length | Should -Be 0
+                        $Type.Precision | Should -Be 0
+                        $Type.Scale | Should -Be 0
+                        $Type.IsNullable | Should -Be $false
+                        $Type.IsMax | Should -Be $false
                     }
                 }
 
                 Context 'VARCHAR Column' {
                     BeforeAll {
-                        $Script:Column = $Script:Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[Description]'
+                        $Column = $Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[Description]'
                     }
 
                     It 'Returns column info' {
-                        $type = $Script:Column | Get-DacDataType
-                        $type | Should -Not -BeNullOrEmpty
-                        $type.Name | Should -Be 'NVarChar'
-                        $type.Length | Should -Be 100
-                        $type.Precision | Should -Be 0
-                        $type.Scale | Should -Be 0
-                        $type.IsNullable | Should -Not -BeNullOrEmpty
-                        $type.IsMax | Should -Not -BeNullOrEmpty
-                        $type.Collation | Should -Be $null
+                        $Type = $Column | Get-DacDataType
+                        $Type | Should -Not -BeNullOrEmpty
+                        $Type.Name | Should -Be 'NVarChar'
+                        $Type.Length | Should -Be 100
+                        $Type.Precision | Should -Be 0
+                        $Type.Scale | Should -Be 0
+                        $Type.IsNullable | Should -Not -BeNullOrEmpty
+                        $Type.IsMax | Should -Not -BeNullOrEmpty
+                        $Type.Collation | Should -Be $null
                     }
                 }
 
                 Context 'DECIMAL Column' {
                     BeforeAll {
-                        $Script:Column = $Script:Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[ExpectedUnitPricePerOuter]'
+                        $Column = $Table | Get-DacColumn -Name '[Purchasing].[PurchaseOrderLines].[ExpectedUnitPricePerOuter]'
                     }
 
                     It 'Returns column info' {
-                        $type = $Script:Column | Get-DacDataType
-                        $type | Should -Not -BeNullOrEmpty
-                        $type.Name | Should -Be 'Decimal'
-                        $type.Length | Should -Be 0
-                        $type.Precision | Should -Be 18
-                        $type.Scale | Should -Be 2
-                        $type.IsNullable | Should -Not -BeNullOrEmpty
-                        $type.IsMax | Should -Not -BeNullOrEmpty
-                        $type.Collation | Should -Be $null
+                        $Type = $Column | Get-DacDataType
+                        $Type | Should -Not -BeNullOrEmpty
+                        $Type.Name | Should -Be 'Decimal'
+                        $Type.Length | Should -Be 0
+                        $Type.Precision | Should -Be 18
+                        $Type.Scale | Should -Be 2
+                        $Type.IsNullable | Should -Not -BeNullOrEmpty
+                        $Type.IsMax | Should -Not -BeNullOrEmpty
+                        $Type.Collation | Should -Be $null
                     }
                 }
             }

@@ -1,31 +1,36 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }
 
-Describe 'Connect-DacService' {
+Describe Connect-Service {
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Test Database' {
+    Context TestDatabase {
 
         BeforeAll {
-            $Script:TestServer = New-SqlTestInstance
+            $TestServer = New-SqlTestInstance
         }
 
         AfterAll {
-            if ( $Script:TestServer ) {
-                $Script:TestServer | Remove-SqlTestInstance
+            if ( $TestServer ) {
+                $TestServer | Remove-SqlTestInstance
             }
         }
 
         It 'Creates a service by datasource' {
-            $service = Connect-DacService -DataSource $Script:TestServer.DataSource -ErrorAction Stop
-            $service | Should -Not -BeNullOrEmpty
+            $Service = Connect-DacService -DataSource $TestServer.DataSource -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
         }
 
         It 'Creates a service by connection string' {
-            $service = Connect-DacService -ConnectionString $Script:TestServer.ConnectionString -ErrorAction Stop
-            $service | Should -Not -BeNullOrEmpty
+            $Service = Connect-DacService -ConnectionString $TestServer.ConnectionString -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Creates a service by pipeline' {
+            $Service = $TestServer | Connect-DacService -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
         }
     }
 }

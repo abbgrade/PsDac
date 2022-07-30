@@ -17,14 +17,16 @@ task UpdateValidationWorkflow {
 
 task UpdatePreReleaseWorkflow {
     Invoke-WebRequest `
-        -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/GitHub/pre-release-windows.yml' `
-        -OutFile "$PSScriptRoot\..\.github\workflows\pre-release.yml"
+        -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/GitHub/pre-release-windows.yml' |
+    ForEach-Object { $_ -replace 'MyModuleName', $ModuleName } |
+    Out-File "$PSScriptRoot\..\.github\workflows\pre-release.yml" -NoNewline
 }
 
 task UpdateReleaseWorkflow {
     Invoke-WebRequest `
-        -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/GitHub/release-windows.yml' `
-        -OutFile "$PSScriptRoot\..\.github\workflows\release.yml"
+        -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/GitHub/release-windows.yml' |
+    ForEach-Object { $_ -replace 'MyModuleName', $ModuleName } |
+    Out-File "$PSScriptRoot\..\.github\workflows\release.yml" -NoNewline
 }
 
 #endregion
@@ -34,6 +36,9 @@ task UpdateIndexPage {
     Invoke-WebRequest `
         -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/docs/index.md' `
         -OutFile "$PSScriptRoot\..\docs\index.md"
+    Invoke-WebRequest `
+        -Uri 'https://raw.githubusercontent.com/abbgrade/PsBuildTasks/main/docs/_config.yml' `
+        -OutFile "$PSScriptRoot\..\docs\_config.yml"
 }
 
 #endregion

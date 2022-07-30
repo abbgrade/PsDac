@@ -5,21 +5,23 @@ using System.Management.Automation;
 
 namespace PsDac
 {
-    [Cmdlet(VerbsCommunications.Connect, "Service")]
+    [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = ConnectionStringParameterSetName)]
     [OutputType(typeof(DacServices))]
     public class ConnectServiceCommand : PSCmdlet
     {
+        const string ConnectionStringParameterSetName = "ConnectionString";
+        const string DataSourceParameterSetName = "DataSource";
+
         [Parameter(
-            ParameterSetName = "ConnectionString",
+            ParameterSetName = ConnectionStringParameterSetName,
             Position = 0,
             Mandatory = true,
-            ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
         public string ConnectionString { get; set; }
 
         [Parameter(
-            ParameterSetName = "DataSource",
+            ParameterSetName = DataSourceParameterSetName,
             Position = 0,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
