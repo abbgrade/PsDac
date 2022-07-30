@@ -5,7 +5,7 @@ param (
     [System.IO.FileInfo] $WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
 )
 
-Describe 'Install-DacPackage' {
+Describe Install-Package {
 
     BeforeDiscovery {
         if ( -Not $TestDbDacPacFile.Exists ) {
@@ -21,7 +21,7 @@ Describe 'Install-DacPackage' {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Server' {
+    Context Server {
 
         BeforeAll {
             $TestServer = New-SqlTestInstance
@@ -32,10 +32,10 @@ Describe 'Install-DacPackage' {
             $TestServer | Remove-SqlTestInstance
         }
 
-        Context 'DacService' {
+        Context DacService {
 
             BeforeAll {
-                $DacService = Connect-DacService -ConnectionString $TestServer.ConnectionString -ErrorAction Stop
+                $DacService = $TestServer | Connect-DacService -ErrorAction Stop
             }
 
             AfterAll {
@@ -44,7 +44,7 @@ Describe 'Install-DacPackage' {
                 }
             }
 
-            Context 'Database' {
+            Context Database {
 
                 BeforeEach {
                     [string] $DatabaseName = ( [string](New-Guid) ).Substring(0, 8)

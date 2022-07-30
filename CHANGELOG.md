@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Default parameter set ConnectionString for Connect-Service.
+
 ## [1.0.0] - 2022-05-12
 
 ### Added
