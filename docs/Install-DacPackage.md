@@ -13,8 +13,8 @@ Installs the package content to a database.
 ## SYNTAX
 
 ```
-Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-ExcludeObjectTypes <ObjectType[]>]
- [-Service <DacServices>] [<CommonParameters>]
+Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-upgradeExisting]
+ [-ExcludeObjectTypes <ObjectType[]>] [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -83,6 +83,21 @@ Specifies the server to install the package to. Default is the latest connected 
 
 ```yaml
 Type: DacServices
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -upgradeExisting
+{{ Fill upgradeExisting Description }}
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
