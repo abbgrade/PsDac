@@ -5,7 +5,7 @@ on:
 
 jobs:
   release:
-    uses: abbgrade/PsBuildTasks/.github/workflows/release-windows.yml@v1.1
+    uses: abbgrade/PsBuildTasks/.github/workflows/release-windows.yml@1.5.0
     with:
       module-name: PsDac
     secrets:
