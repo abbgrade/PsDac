@@ -1,7 +1,7 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
 param (
-    [System.IO.FileInfo] $TestDbDacPacFile = "$PsScriptRoot\testdb\bin\Debug\testdb.dacpac",
+    [System.IO.FileInfo] $TestDbDacPacFile = "$PsScriptRoot\sql-server-test-project\testdb\bin\Debug\testdb.dacpac",
     [System.IO.FileInfo] $WwiDacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
 )
 
