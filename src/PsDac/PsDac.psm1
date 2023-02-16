@@ -14,7 +14,9 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
     $LoadedAssembly = $LoadedAssemblies | Where-Object Location -Like "*$( $RequiredAssemblyPath.Name )"
 
     if ( $LoadedAssembly ) {
-        Write-Warning "Assembly '$( $LoadedAssembly.GetName() )' already loaded from '$( $LoadedAssembly.Location )'. Skip adding defined dll."
+        if ( $LoadedAssembly.Location -ne $RequiredAssemblyPath.FullName ) {
+            Write-Warning "Assembly '$( $LoadedAssembly.GetName() )' already loaded from '$( $LoadedAssembly.Location )'. Skip adding defined dll."
+        }
     }
     else {
         try {
