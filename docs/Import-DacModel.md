@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Import-DacModel.html
 schema: 2.0.0
 ---
 
@@ -23,7 +23,7 @@ Provides a model object to access it's definition.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac
 
 Version           : Sql130
@@ -45,7 +45,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -87,13 +87,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.IO.FileInfo
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlModel
-
 ## NOTES
 
 ## RELATED LINKS
 
 [TSqlModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlmodel)
+

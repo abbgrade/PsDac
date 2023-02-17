@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Get-DacSchema.html
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Provides a schema object to access it's definition.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacSchema -Name 'Application'
 fwd-i-search: _
 Schema      Name          ObjectType
@@ -84,14 +84,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlModel
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
-
 ## NOTES
 
 ## RELATED LINKS
 
 [TSqlObject](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlobject)
+
 [TSqlModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlmodel)
+

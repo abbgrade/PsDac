@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Import-DacPackage.html
 schema: 2.0.0
 ---
 
@@ -24,12 +24,13 @@ Import-DacPackage [-DatabaseName <String>] -ApplicationName <String> -Applicatio
 ```
 
 ## DESCRIPTION
-Imports a DacPackage from a DacPac file or a database. If it loaded from a database, a connection must be established before.
+Imports a DacPackage from a DacPac file or a database.
+If it loaded from a database, a connection must be established before.
 
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> {{ Add example code here }}
 ```
 
@@ -114,7 +115,8 @@ Accept wildcard characters: False
 ```
 
 ### -Service
-Specifies the server to extract the package from. Default is the latest connected service.
+Specifies the server to extract the package from.
+Default is the latest connected service.
 
 ```yaml
 Type: DacServices
@@ -134,13 +136,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.IO.FileInfo
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.DacPackage
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)
+
