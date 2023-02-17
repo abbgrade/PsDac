@@ -104,7 +104,8 @@ Accept wildcard characters: False
 ```
 
 ### -Service
-Specifies the server to extract the package from. Default is the latest connected service.
+Specifies the server to extract the package from.
+Default is the latest connected service.
 
 ```yaml
 Type: DacServices
