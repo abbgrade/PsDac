@@ -32,7 +32,8 @@ namespace PsDac
         {
             base.EndProcessing();
 
-            Service.Message -= Service_Message;
+            if (Service != null)
+                Service.Message -= Service_Message;
         }
 
         private void Service_Message(object sender, DacMessageEventArgs e)
