@@ -8,13 +8,20 @@ schema: 2.0.0
 # Import-DacModel
 
 ## SYNOPSIS
-Imports a model from a dacpac file.
+Imports a model from a dacpac or a database.
 
 ## SYNTAX
 
+### File
 ```
 Import-DacModel [-Path] <FileInfo> [-ModelStorageType <DacSchemaModelStorageType>] [-LoadAsScriptBackedModel]
- [<CommonParameters>]
+ [-Service <DacServices>] [<CommonParameters>]
+```
+
+### Database
+```
+Import-DacModel [-DatabaseName <String>] [-ModelStorageType <DacSchemaModelStorageType>]
+ [-LoadAsScriptBackedModel] [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,13 +78,44 @@ Specifies the path to the dacpac to load the model from.
 
 ```yaml
 Type: FileInfo
-Parameter Sets: (All)
+Parameter Sets: File
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -DatabaseName
+Name of the source database
+
+```yaml
+Type: String
+Parameter Sets: Database
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Service
+Specifies the server to extract the package from.
+Default is the latest connected service.
+
+```yaml
+Type: DacServices
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

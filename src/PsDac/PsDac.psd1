@@ -78,7 +78,7 @@
                    'Get-ScalarFunction', 'Get-Schema', 'Get-Table',
                    'Get-TableValuedFunction', 'Get-View', 'Import-Model', 'Import-Package',
                    'Install-Package', 'New-CreateScript', 'Remove-Schema', 'Set-Package',
-                   'Test-Model'
+                   'Test-Model', 'Export-Model'
 
     # Variables to export from this module
     # VariablesToExport = @()
