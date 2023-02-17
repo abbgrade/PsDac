@@ -70,6 +70,7 @@ namespace PsDac
                     );
 
                     model = TSqlModel.LoadFromDacpac(fileName: tempDacPacPath, options: new ModelLoadOptions(modelStorageType: ModelStorageType, loadAsScriptBackedModel: LoadAsScriptBackedModel.IsPresent));
+                    File.Delete(tempDacPacPath);
                     break;
 
                 case PARAMETERSET_FILE:
