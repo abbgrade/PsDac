@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.SqlServer.Dac;
 using System.Linq;
+using Microsoft.SqlServer.Dac.Model;
 
 namespace PsDac
 {
@@ -11,8 +12,8 @@ namespace PsDac
     [OutputType(typeof(List<SchemaDifference>))]
     public class NewSchemaComparisonCommand : PSCmdlet
     {
-        const string PARAMETERSET_STANDARD = "StandardDacComparison";
-        const string PARAMETERSET_EXTENDED = "ExtendedComparison";
+        const string PARAMETERSET_STANDARD = "Standard";
+        const string PARAMETERSET_EXTENDED = "Extended";
 
         [Parameter(
             ParameterSetName = PARAMETERSET_STANDARD,
@@ -23,7 +24,7 @@ namespace PsDac
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public FileInfo DacPacPathSource { get; set; }
+        public TSqlModel Source { get; set; }
 
         [Parameter(
             ParameterSetName = PARAMETERSET_STANDARD,
@@ -34,7 +35,7 @@ namespace PsDac
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public FileInfo DacPacPathTarget { get; set; }
+        public TSqlModel Target { get; set; }
 
         [Parameter(
             ParameterSetName = PARAMETERSET_EXTENDED,
@@ -47,10 +48,14 @@ namespace PsDac
         {
             base.ProcessRecord();
 
-            var source = new SchemaCompareDacpacEndpoint(DacPacPathSource.FullName);
-            var target = new SchemaCompareDacpacEndpoint(DacPacPathTarget.FullName);
-
-            var comparison = new SchemaComparison(source, target);
+            var sourcePath = Path.GetTempFileName();
+            var targetPath = Path.GetTempFileName();
+            var comparison = new SchemaComparison(
+                source: new SchemaCompareDacpacEndpoint(sourcePath),
+                target: new SchemaCompareDacpacEndpoint(targetPath)
+            );
+            File.Delete(sourcePath);
+            File.Delete(targetPath);
 
             var excludedObjectTypes = comparison.Options.ExcludeObjectTypes;
 

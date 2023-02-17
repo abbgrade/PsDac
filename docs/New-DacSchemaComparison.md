@@ -12,15 +12,15 @@ Creates a Schema Comparison for two Dac Pacs
 
 ## SYNTAX
 
-### StandardDacComparison
+### Standard
 ```
-New-DacSchemaComparison -DacPacPathSource <FileInfo> -DacPacPathTarget <FileInfo> [<CommonParameters>]
+New-DacSchemaComparison -Source <TSqlModel> -Target <TSqlModel> [<CommonParameters>]
 ```
 
-### ExtendedComparison
+### Extended
 ```
-New-DacSchemaComparison -DacPacPathSource <FileInfo> -DacPacPathTarget <FileInfo>
- -ExcludedObjectTypes <ObjectType[]> [<CommonParameters>]
+New-DacSchemaComparison -Source <TSqlModel> -Target <TSqlModel> -ExcludedObjectTypes <ObjectType[]>
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,44 +35,44 @@ PS C:\> New-DacSchemaComparison -DacPacPathSource ./WideWorldImporters.dacpac -D
 
 ## PARAMETERS
 
-### -DacPacPathSource
-Specifies the source DacPac for the comparison
-
-```yaml
-Type: FileInfo
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -DacPacPathTarget
-Specifies the target DacPac for the comparison
-
-```yaml
-Type: FileInfo
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -ExcludedObjectTypes
 Specifies the Object Types which should be ignored for the comparison
 
 ```yaml
 Type: ObjectType[]
-Parameter Sets: ExtendedComparison
+Parameter Sets: Extended
 Aliases:
 Accepted values: Aggregates, ApplicationRoles, Assemblies, AssemblyFiles, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseOptions, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, Files, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseEncryptionKeys, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, MasterKeys, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers, ExternalStreams, ExternalStreamingJobs, DatabaseWorkloadGroups, WorkloadClassifiers, ExternalLibraries, ExternalLanguages
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Source
+Specifies the source TSqlModel for the comparison.
+
+```yaml
+Type: TSqlModel
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Target
+Specifies the target TSqlModel for the comparison.
+
+```yaml
+Type: TSqlModel
+Parameter Sets: (All)
+Aliases:
 
 Required: True
 Position: Named
