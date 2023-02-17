@@ -1,6 +1,5 @@
 using System.Management.Automation;
 using Microsoft.SqlServer.Dac.Compare;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.SqlServer.Dac;
@@ -12,33 +11,33 @@ namespace PsDac
     [OutputType(typeof(List<SchemaDifference>))]
     public class NewSchemaComparisonCommand : PSCmdlet
     {
-        const string StandardComparisonParameterSetName = "StandardDacComparison";
-        const string ExtendedComparisonParameterSetName = "ExtendedComparison";
+        const string PARAMETERSET_STANDARD = "StandardDacComparison";
+        const string PARAMETERSET_EXTENDED = "ExtendedComparison";
 
         [Parameter(
-            ParameterSetName = StandardComparisonParameterSetName,
+            ParameterSetName = PARAMETERSET_STANDARD,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [Parameter(
-            ParameterSetName = ExtendedComparisonParameterSetName,
+            ParameterSetName = PARAMETERSET_EXTENDED,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
         public FileInfo DacPacPathSource { get; set; }
 
         [Parameter(
-            ParameterSetName = StandardComparisonParameterSetName,
+            ParameterSetName = PARAMETERSET_STANDARD,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [Parameter(
-            ParameterSetName = ExtendedComparisonParameterSetName,
+            ParameterSetName = PARAMETERSET_EXTENDED,
             Mandatory = true,
-            ValueFromPipelineByPropertyName = true)] 
+            ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
         public FileInfo DacPacPathTarget { get; set; }
 
         [Parameter(
-            ParameterSetName = ExtendedComparisonParameterSetName,
+            ParameterSetName = PARAMETERSET_EXTENDED,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         public ObjectType[] ExcludedObjectTypes { get; set; }
@@ -50,15 +49,15 @@ namespace PsDac
 
             var source = new SchemaCompareDacpacEndpoint(DacPacPathSource.FullName);
             var target = new SchemaCompareDacpacEndpoint(DacPacPathTarget.FullName);
- 
+
             var comparison = new SchemaComparison(source, target);
 
             var excludedObjectTypes = comparison.Options.ExcludeObjectTypes;
 
             switch (ParameterSetName)
             {
-                case "ExtendedComparison":
-                    WriteVerbose("use comparison with custom options.");
+                case PARAMETERSET_EXTENDED:
+                    WriteVerbose("Use comparison with custom options.");
                     foreach(ObjectType t in ExcludedObjectTypes)
                     {
                         excludedObjectTypes = excludedObjectTypes.Append(t).ToArray();
@@ -70,7 +69,7 @@ namespace PsDac
             var result = comparison.Compare();
 
             WriteObject(result.Differences);
-            
+
         }
     }
 }
