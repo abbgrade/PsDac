@@ -42,7 +42,9 @@ namespace PsDac
         )]
         public Version ApplicationVersion { get; set; }
 
-        [Parameter()]
+        [Parameter(
+            ParameterSetName = PARAMETERSET_FILE
+        )]
         public FileAccess Access { get; set; } = FileAccess.Read;
 
         protected override void BeginProcessing()
