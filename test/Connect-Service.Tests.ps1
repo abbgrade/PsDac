@@ -1,33 +1,36 @@
-#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }
 
-Describe 'Connect-DacService' {
-
-    BeforeDiscovery {
-        $Script:PsSqlTestServer = Import-Module PsSqlTestServer -PassThru -ErrorAction Continue
-    }
+Describe Connect-Service {
 
     BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'Test Database' -Skip:( -Not $Script:PsSqlTestServer ) {
+    Context TestDatabase {
 
         BeforeAll {
-            $Script:TestServer = New-SqlServer
+            $TestServer = New-SqlTestInstance
         }
 
         AfterAll {
-            $Script:TestServer | Remove-SqlServer
+            if ( $TestServer ) {
+                $TestServer | Remove-SqlTestInstance
+            }
         }
 
         It 'Creates a service by datasource' {
-            $service = Connect-DacService -DataSource $Script:TestServer.DataSource -ErrorAction Stop
-            $service | Should -Not -BeNullOrEmpty
+            $Service = Connect-DacService -DataSource $TestServer.DataSource -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
         }
 
         It 'Creates a service by connection string' {
-            $service = Connect-DacService -ConnectionString $Script:TestServer.ConnectionString -ErrorAction Stop
-            $service | Should -Not -BeNullOrEmpty
+            $Service = Connect-DacService -ConnectionString $TestServer.ConnectionString -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Creates a service by pipeline' {
+            $Service = $TestServer | Connect-DacService -ErrorAction Stop
+            $Service | Should -Not -BeNullOrEmpty
         }
     }
 }

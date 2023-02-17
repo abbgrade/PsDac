@@ -8,16 +8,23 @@ schema: 2.0.0
 # Import-DacPackage
 
 ## SYNOPSIS
-Imports the package from a dacpac file.
+Imports the package from a dacpac or a database.
 
 ## SYNTAX
 
+### File
 ```
-Import-DacPackage [-Path] <FileInfo> [-Access <FileAccess>] [<CommonParameters>]
+Import-DacPackage [-Path] <FileInfo> [-Access <FileAccess>] [-Service <DacServices>] [<CommonParameters>]
+```
+
+### Database
+```
+Import-DacPackage [-DatabaseName <String>] -ApplicationName <String> -ApplicationVersion <Version>
+ [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Imports a DacPackage from a DacPac file or a database. If it loaded from a database, a connection must be established before.
 
 ## EXAMPLES
 
@@ -31,11 +38,11 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Access
-{{ Fill Access Description }}
+Specifies if the file is opened for read or write access.
 
 ```yaml
 Type: FileAccess
-Parameter Sets: (All)
+Parameter Sets: File
 Aliases:
 Accepted values: Read, Write, ReadWrite
 
@@ -51,13 +58,73 @@ Specifies the path to the dacpac to load the package from.
 
 ```yaml
 Type: FileInfo
-Parameter Sets: (All)
+Parameter Sets: File
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -ApplicationName
+Identifier for the DAC application.
+
+```yaml
+Type: String
+Parameter Sets: Database
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ApplicationVersion
+Version of the DAC application.
+
+```yaml
+Type: Version
+Parameter Sets: Database
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DatabaseName
+Name of the source database.
+
+```yaml
+Type: String
+Parameter Sets: Database
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Service
+Specifies the server to extract the package from. Default is the latest connected service.
+
+```yaml
+Type: DacServices
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

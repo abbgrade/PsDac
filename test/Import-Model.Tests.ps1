@@ -1,19 +1,19 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
-Describe 'Import-DacModel' {
+param (
+    [System.IO.FileInfo] $DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+)
 
-    BeforeDiscovery {
-        [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
-    }
+Describe Import-Model {
 
     BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'DacPac' -Skip:( -Not $Script:DacPacFile.Exists ) {
+    Context DacPac -Skip:( -Not $DacPacFile.Exists ) {
         It 'Imports the model from a DacPac' {
-            $model = Import-DacModel -Path $Script:DacPacFile
-            $model | Should -Not -BeNullOrEmpty
+            $Model = Import-DacModel -Path $DacPacFile
+            $Model | Should -Not -BeNullOrEmpty
         }
     }
 }

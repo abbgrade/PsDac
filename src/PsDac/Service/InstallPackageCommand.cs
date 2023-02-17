@@ -24,6 +24,9 @@ namespace PsDac
         public string DatabaseName { get; set; }
 
         [Parameter()]
+        public SwitchParameter UpgradeExisting { get; set; }
+
+        [Parameter()]
         public ObjectType[] ExcludeObjectTypes { get; set; }
 
         protected override void ProcessRecord()
@@ -32,7 +35,7 @@ namespace PsDac
 
             var options = new DacDeployOptions();
             options.ExcludeObjectTypes = ExcludeObjectTypes;
-            Service.Deploy(package: Package, targetDatabaseName: DatabaseName, options: options);
+            Service.Deploy(package: Package, targetDatabaseName: DatabaseName, upgradeExisting: UpgradeExisting.IsPresent, options: options);
         }
     }
 }

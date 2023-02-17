@@ -30,20 +30,11 @@ TODO
 
 ## Changelog
 
-### 0.2.0
-
-- Added variable handling to `New-DacCreateScript` command.
-- Added `Get-DacTableValuedFunction` command.
-
-### 0.3.0
-
-- Added `Connect-DacService` command.
-- Added `Disconnect-DacService` command.
-- Added `Install-DacPackage` command.
-- Added output to all commands.
-- Added documentation.
+See the [changelog](./CHANGELOG.md) file.
 
 ## Development
+
+[![.github/workflows/build-validation.yml](https://github.com/abbgrade/PsDac/actions/workflows/build-validation.yml/badge.svg?branch=develop)](https://github.com/abbgrade/PsDac/actions/workflows/build-validation.yml)
 
 - This is a [Portable Module](https://docs.microsoft.com/de-de/powershell/scripting/dev-cross-plat/writing-portable-modules?view=powershell-7) based on [PowerShell Standard](https://github.com/powershell/powershellstandard) and [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 - [VSCode](https://code.visualstudio.com) is recommended as IDE. [VSCode Tasks](https://code.visualstudio.com/docs/editor/tasks) are configured.
@@ -51,7 +42,9 @@ TODO
 - Test automation is based on [Pester](https://pester.dev)
 - Documentation is based on [platyPs](https://github.com/PowerShell/platyPS)
 - Commands are named based on [Approved Verbs for PowerShell Commands](https://docs.microsoft.com/de-de/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands)
-- This project uses [gitflow](https://github.com/nvie/gitflow).
+- This project uses [git-flow](https://github.com/nvie/gitflow).
+- This project uses [keep a changelog](https://keepachangelog.com/en/1.0.0/).
+- This project uses [PsBuildTasks](https://github.com/abbgrade/PsBuildTasks).
 
 ### Build
 

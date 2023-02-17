@@ -1,47 +1,47 @@
 #Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }
 
-Describe 'Get-DacForeignKey' {
+param (
+    [System.IO.FileInfo] $DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
+)
 
-    BeforeDiscovery {
-        [System.IO.FileInfo] $Script:DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
-    }
+Describe Get-ForeignKey {
 
     BeforeAll {
-        Import-Module $PSScriptRoot\..\src\PsDac\bin\Debug\net5.0\publish\PsDac.psd1 -ErrorAction Stop
+        Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
-    Context 'DacPac' -Skip:( -Not $Script:DacPacFile.Exists ) {
-        Context 'Model' {
+    Context DacPac -Skip:( -Not $DacPacFile.Exists ) {
+        Context Model {
             BeforeAll {
-                $Script:Model = Import-DacModel -Path $Script:DacPacFile
+                $Model = Import-DacModel -Path $DacPacFile
             }
 
             It 'Returns all foreign keys of a model' {
-                $keys = $Script:Model | Get-DacForeignKey
-                $keys | Should -Not -BeNullOrEmpty
-                $keys.Count | Should -BeGreaterThan 5
+                $Keys = $Model | Get-DacForeignKey
+                $Keys | Should -Not -BeNullOrEmpty
+                $Keys.Count | Should -BeGreaterThan 5
             }
 
             It 'Returns all foreign keys of a model by name' {
-                $key = $Script:Model | Get-DacForeignKey -Name '[Application].[FK_Application_Cities_Application_People]'
-                $key | Should -Not -BeNullOrEmpty
-                $key.Name | Should -Be '[Application].[FK_Application_Cities_Application_People]'
-                $key.ObjectType.Name | Should -Be 'ForeignKeyConstraint'
+                $Key = $Model | Get-DacForeignKey -Name '[Application].[FK_Application_Cities_Application_People]'
+                $Key | Should -Not -BeNullOrEmpty
+                $Key.Name | Should -Be '[Application].[FK_Application_Cities_Application_People]'
+                $Key.ObjectType.Name | Should -Be 'ForeignKeyConstraint'
 
-                $parent = $key.GetParent()
-                $parent.Name | Should -Be '[Application].[Cities]'
+                $Parent = $Key.GetParent()
+                $Parent.Name | Should -Be '[Application].[Cities]'
 
-                $referenced = $key.GetReferenced()
+                $Referenced = $Key.GetReferenced()
 
-                $sourceTable, $targetTable = $referenced | Where-Object { $_.ObjectType.Name -eq 'Table' }
+                $SourceTable, $TargetTable = $Referenced | Where-Object { $_.ObjectType.Name -eq 'Table' }
 
-                $sourceTable.Name | Should -Be '[Application].[Cities]'
-                $targetTable.Name | Should -Be '[Application].[People]'
+                $SourceTable.Name | Should -Be '[Application].[Cities]'
+                $TargetTable.Name | Should -Be '[Application].[People]'
 
-                $sourceColumn, $targetColumn = $referenced | Where-Object { $_.ObjectType.Name -eq 'Column' }
+                $SourceColumn, $TargetColumn = $Referenced | Where-Object { $_.ObjectType.Name -eq 'Column' }
 
-                $sourceColumn.Name | Should -Be '[Application].[Cities].[LastEditedBy]'
-                $targetColumn.Name | Should -Be '[Application].[People].[PersonID]'
+                $SourceColumn.Name | Should -Be '[Application].[Cities].[LastEditedBy]'
+                $TargetColumn.Name | Should -Be '[Application].[People].[PersonID]'
             }
         }
     }

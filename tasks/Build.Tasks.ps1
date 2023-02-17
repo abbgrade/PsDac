@@ -1,51 +1,81 @@
+# Copy from original https://github.com/abbgrade/PsBuildTasks/blob/main/DotNet/Build.Tasks.ps1
+
 requires Configuration
+requires ModuleName
 
-[System.Version] $global:PsDacVersion = New-Object System.Version (
-	Import-PowerShellDataFile $PSScriptRoot\..\src\PsDac\PsDac.psd1
-).ModuleVersion
-[System.IO.DirectoryInfo] $global:PsDacStage = "$PSScriptRoot\..\src\PsDac\bin\$Configuration\net5.0\publish"
-[System.IO.FileInfo] $global:PsDacManifest = "$global:PsDacStage\PsDac.psd1"
-[System.IO.DirectoryInfo] $global:PsDacDoc = "$PSScriptRoot\..\docs"
-[System.IO.DirectoryInfo] $global:PsDacInstallDirectory = Join-Path $env:PSModulePath.Split(';')[0] 'PsDac' $global:PsDacVersion
+[System.IO.DirectoryInfo] $PublishDirectory = "$PSScriptRoot/../publish"
+[System.IO.DirectoryInfo] $SourceDirectory = "$PSScriptRoot/../src"
+[System.IO.DirectoryInfo] $DocumentationDirectory = "$PSScriptRoot/../docs"
+[System.IO.DirectoryInfo] $ModulePublishDirectory = "$PublishDirectory/$ModuleName"
+[System.IO.DirectoryInfo] $ModuleSourceDirectory = "$SourceDirectory/$ModuleName"
+[System.IO.DirectoryInfo] $BinaryDirectory = "$ModuleSourceDirectory/bin"
+[System.IO.DirectoryInfo] $ObjectDirectory = "$ModuleSourceDirectory/obj"
 
-task PsDac.Build.Dll -Jobs {
-    exec { dotnet publish $PSScriptRoot\..\src\PsDac -c $Configuration }
+# Synopsis: Set the prerelease in the manifest based on the build number.
+task SetPrerelease -If $BuildNumber {
+	$Global:PreRelease = "alpha$( '{0:d4}' -f $BuildNumber )"
+	Update-ModuleManifest -Path $Global:Manifest -Prerelease $Global:PreRelease
 }
 
-task PsDac.Import -Jobs PsDac.Build.Dll, {
-    Import-Module $global:PsDacManifest.FullName
+# Synopsis: Build the dll with the module commands.
+task Build.Dll -Jobs {
+	exec { dotnet publish $ModuleSourceDirectory -c $Configuration -o $ModulePublishDirectory }
+	$Global:Manifest = Get-Item $ModulePublishDirectory/$ModuleName.psd1
+}, SetPrerelease
+
+# Synopsis: Import the module.
+task Import -Jobs Build.Dll, {
+    Import-Module $Global:Manifest
 }
 
-task PsDac.Doc.Init -If { -Not $global:PsDacDoc.Exists -Or $Force } -Jobs PsDac.Import, {
-    New-MarkdownHelp -Module PsDac -OutputFolder $global:PsDacDoc -Force:$Force -ErrorAction Stop
+# Synopsis: Import platyPs.
+task Import.platyPs -Jobs {
+	Import-Module platyPs
 }
 
-task PsDac.Doc -Jobs PsDac.Import, {
-    Update-MarkdownHelp -Path $global:PsDacDoc
+# Synopsis: Initialize the documentation.
+task Doc.Init -If { $DocumentationDirectory.Exists -eq $false -Or $ForceDocInit -eq $true } -Jobs Import, Import.platyPs, {
+	New-Item $DocumentationDirectory -ItemType Directory -ErrorAction SilentlyContinue
+    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationDirectory -Force:$ForceDocInit -ErrorAction Stop
 }
 
-task PsDac.Build.Help -Jobs PsDac.Doc, {
-    New-ExternalHelp -Path $global:PsDacDoc -OutputPath $global:PsDacStage\en-US\ -Force
+# Synopsis: Update the markdown documentation.
+task Doc.Update -Jobs Import, Import.platyPs, Doc.Init, {
+    Update-MarkdownHelp -Path $DocumentationDirectory
 }
 
-task PsDac.Build -If { -Not $global:PsDacManifest.Exists -Or $Force } -Jobs PsDac.Build.Dll, PsDac.Build.Help
-
-task PsDac.Clean {
-	remove $PSScriptRoot\..\src\PsDac\bin, $PSScriptRoot\..\src\PsDac\obj
+# Synopsis: Build the XML help based on the markdown documentation.
+task Build.Help -Jobs Import.platyPs, Doc.Update, {
+    New-ExternalHelp -Path $DocumentationDirectory -OutputPath $ModulePublishDirectory\en-US\ -Force
 }
 
-task PsDac.Uninstall -If { $global:PsDacInstallDirectory.Exists } -Jobs {
-	Remove-Item -Recurse -Force $global:PsDacInstallDirectory.FullName
+# Synopsis: Build the module.
+task Build -Job Build.Dll, Build.Help
+
+# Synopsis: Remove all temporary files.
+task Clean {
+	remove $BinaryDirectory, $ObjectDirectory, $PublishDirectory
 }
 
-task PsDac.Install -If { -Not $global:PsDacInstallDirectory.Exists -Or $Force } -Jobs PsDac.Build, {
-	Get-ChildItem $global:PsDacStage | Copy-Item -Destination $global:PsDacInstallDirectory.FullName -Recurse -Force
+# Synopsis: Install the module.
+task Install -Jobs Build, {
+	$info = Import-PowerShellDataFile $Global:Manifest
+	$version = ([System.Version] $info.ModuleVersion)
+	$defaultModulePath = $env:PSModulePath -split ';' | Select-Object -First 1
+    if ( -not $defaultModulePath ) {
+        Write-Error "Failed to determine default module path from `$env:PSModulePath='$( $env:PSModulePath )'"
+    }
+	Write-Verbose "install $ModuleName $version to '$defaultModulePath'"
+	$installPath = Join-Path $defaultModulePath $ModuleName $version.ToString()
+	New-Item -Type Directory $installPath -Force | Out-Null
+	Get-ChildItem $Global:Manifest.Directory | Copy-Item -Destination $installPath -Recurse -Force
 }
 
 # Synopsis: Publish the module to PSGallery.
-task PsDac.Publish -Jobs PsDac.Install, {
-
-	assert ( $Configuration -eq 'Release' )
-
-	Publish-Module -Name PsDac -NuGetApiKey $NuGetApiKey
+task Publish -Jobs Clean, Build, {
+	if ( -Not $Global:PreRelease ) {
+		assert ( $Configuration -eq 'Release' )
+		Update-ModuleManifest -Path $Global:Manifest -Prerelease ''
+	}
+	Publish-Module -Path $Global:Manifest.Directory -NuGetApiKey $NuGetApiKey -Force:$ForcePublish
 }

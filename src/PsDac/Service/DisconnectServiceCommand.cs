@@ -8,6 +8,10 @@ namespace PsDac
     [OutputType(typeof(void))]
     public class DisconnectServiceCommand : ClientCommand
     {
+
+        [Parameter( ValueFromPipeline = true )]
+        public new DacServices Service { get; set; } = ConnectServiceCommand.Service;
+
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
