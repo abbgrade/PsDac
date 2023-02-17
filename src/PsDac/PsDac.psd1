@@ -75,7 +75,7 @@
     CmdletsToExport = 'Connect-Service', 'Disconnect-Service', 'Get-Column', 'Get-DataType',
                    'Get-ForeignKey', 'Get-Object', 'Get-PartitionFunction',
                    'Get-PartitionScheme', 'Get-Procedure', 'Get-Role',
-                   'Get-ScalarFunction', 'Get-Schema', 'Get-Model', 'Get-Table',
+                   'Get-ScalarFunction', 'Get-Schema', 'Get-Table',
                    'Get-TableValuedFunction', 'Get-View', 'Import-Model', 'Import-Package',
                    'Install-Package', 'New-CreateScript', 'Remove-Schema', 'Set-Package',
                    'Test-Model'
