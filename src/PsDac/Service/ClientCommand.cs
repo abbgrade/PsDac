@@ -12,19 +12,28 @@ namespace PsDac
 
         protected override void BeginProcessing()
         {
+            BeginProcessing(serviceRequired: false);
+        }
+
+        protected void BeginProcessing(bool serviceRequired)
+        {
             base.BeginProcessing();
 
             if (Service == null)
-                throw new PSArgumentNullException(nameof(Service), $"run Connect-DacService");
-
-            Service.Message += Service_Message;
+            {
+                if (serviceRequired == true)
+                    throw new PSArgumentNullException(nameof(Service), $"run Connect-DacService");
+            }
+            else
+                Service.Message += Service_Message;
         }
 
         protected override void EndProcessing()
         {
             base.EndProcessing();
 
-            Service.Message -= Service_Message;
+            if (Service != null)
+                Service.Message -= Service_Message;
         }
 
         private void Service_Message(object sender, DacMessageEventArgs e)
