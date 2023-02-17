@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/New-DacCreateScript.html
 schema: 2.0.0
 ---
 
@@ -23,7 +23,7 @@ New-DacCreateScript [-Package] <DacPackage> [-DatabaseName <String>] [-CreateNew
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> {{ Add example code here }}
 ```
 
@@ -41,7 +41,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -56,7 +56,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +86,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -127,13 +127,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.DacPackage
-
 ## OUTPUTS
 
 ### System.String
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)
+

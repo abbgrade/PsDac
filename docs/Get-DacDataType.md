@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Get-DacDataType.html
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Provides the datatype and properties to a column.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '[Application].[Cities]' | Get-DacColumn -Name '[Application].[Cities].[CityID]' | Get-DacDataType
 
 
@@ -39,7 +39,8 @@ _detail    : Microsoft.SqlServer.Dac.Model.TSqlObject
 ## PARAMETERS
 
 ### -Column
-Specifies the column to get the data type from. The ObjectType must be Column.
+Specifies the column to get the data type from.
+The ObjectType must be Column.
 
 ```yaml
 Type: TSqlObject
@@ -59,14 +60,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
-
 ## OUTPUTS
 
 ### PsDac.GetDataTypeCommand+ColumnInfo
-
 ## NOTES
 
 ## RELATED LINKS
 
 [TSqlObject](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlobject)
+
 [Column](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.column)
+

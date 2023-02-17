@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices
 schema: 2.0.0
 ---
 
@@ -29,7 +29,7 @@ Unfortunately, the parameters are not checked while connecting, but while usage.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB'
 ```
 
@@ -54,7 +54,7 @@ Accept wildcard characters: False
 ```
 
 ### -DataSource
-Specifies the datasource aka. server name to connect to.
+Specifies the datasource or server name to connect to.
 
 ```yaml
 Type: String
@@ -74,13 +74,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.DacServices
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+
