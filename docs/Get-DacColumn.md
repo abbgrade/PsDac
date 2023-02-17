@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Get-DacColumn.html
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Provides a column object to access it's definition.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '[Application].[Cities]' | Get-DacColumn -Name '[Application].[Cities].[CityID]'
 
 Schema      Name                            ObjectType
@@ -48,7 +48,8 @@ Accept wildcard characters: False
 ```
 
 ### -Table
-Specifies the table to get the columns from. The ObjectType must be Table.
+Specifies the table to get the columns from.
+The ObjectType must be Table.
 
 ```yaml
 Type: TSqlObject
@@ -68,11 +69,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
-
 ObjectType will be Column.
 
 ## NOTES
@@ -80,3 +79,4 @@ ObjectType will be Column.
 ## RELATED LINKS
 
 [TSqlObject](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlobject)
+

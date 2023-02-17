@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Disconnect-DacService.html
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Disconnect-DacService [-Service <DacServices>] [<CommonParameters>]
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB'
 PS C:\> Disconnect-DacService
 ```
@@ -32,7 +32,8 @@ Closes an open connection to localdb.
 ## PARAMETERS
 
 ### -Service
-Specifies the service to disconnect. Default is the latest connected service.
+Specifies the service to disconnect.
+Default is the latest connected service.
 
 ```yaml
 Type: DacServices
@@ -52,13 +53,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### None
-
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+
