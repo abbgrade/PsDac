@@ -50,6 +50,16 @@ namespace PsDac
 
             var sourcePath = Path.GetTempFileName();
             var targetPath = Path.GetTempFileName();
+            DacPackageExtensions.BuildPackage(
+                packageFilePath: sourcePath,
+                model: Source,
+                packageMetadata: new PackageMetadata()
+            );
+            DacPackageExtensions.BuildPackage(
+                packageFilePath: targetPath,
+                model: Target,
+                packageMetadata: new PackageMetadata()
+            );
             var comparison = new SchemaComparison(
                 source: new SchemaCompareDacpacEndpoint(sourcePath),
                 target: new SchemaCompareDacpacEndpoint(targetPath)
