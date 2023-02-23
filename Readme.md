@@ -1,6 +1,8 @@
-# PsDac
+# Readme
 
 PsDac connects DacFx and PowerShell. It gives you PowerShell Cmdlets with the power of [Microsoft.SqlServer.DacFx](https://www.nuget.org/packages/Microsoft.SqlServer.DacFx). For example you can access the content of a Dacpac file to generate documentation, or Azure Data Factory pipelines. Or do PowerShell native deployments without [SqlPackage.exe](https://docs.microsoft.com/de-de/sql/tools/sqlpackage/sqlpackage?view=sql-server-ver15).
+
+For details, visit the [GitHub Pages](https://abbgrade.github.io/PsDac/).
 
 ## Installation
 
@@ -22,11 +24,7 @@ Invoke-Build Install
 
 ## Usage
 
-TODO
-
-### Commands
-
-TODO
+See [the command reference](./docs/) for descriptions and examples.
 
 ## Changelog
 
