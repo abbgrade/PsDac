@@ -64,8 +64,6 @@ namespace PsDac
                 source: new SchemaCompareDacpacEndpoint(sourcePath),
                 target: new SchemaCompareDacpacEndpoint(targetPath)
             );
-            File.Delete(sourcePath);
-            File.Delete(targetPath);
 
             var excludedObjectTypes = comparison.Options.ExcludeObjectTypes;
 
@@ -82,6 +80,9 @@ namespace PsDac
             }
 
             var result = comparison.Compare();
+
+            File.Delete(sourcePath);
+            File.Delete(targetPath);
 
             WriteObject(result.Differences);
 
