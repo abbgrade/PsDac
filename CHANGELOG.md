@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `Export-DacModel` command.
 - Added database option to import model or package from.
 
+### Changed
+
+- Updated powershell version.
+
 ## [1.2.0] - 2022-07-30
 
 ### Added
