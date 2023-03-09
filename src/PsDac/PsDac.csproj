@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.8089.0" />
-    <PackageReference Include="System.Management.Automation" Version="7.2.10" />
+    <PackageReference Include="System.Management.Automation" Version="7.3.3" />
   </ItemGroup>
 
   <ItemGroup>
