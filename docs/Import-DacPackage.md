@@ -54,6 +54,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Path
+Specifies the path to the dacpac to load the package from.
+
+```yaml
+Type: FileInfo
+Parameter Sets: File
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
 ### -ApplicationName
 Identifier for the DAC application.
 
@@ -96,21 +111,6 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Path
-Specifies the path to the dacpac to load the package from.
-
-```yaml
-Type: FileInfo
-Parameter Sets: File
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

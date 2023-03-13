@@ -48,12 +48,13 @@ namespace PsDac
 
             try
             {
+                DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder();
+
                 switch (ParameterSetName)
                 {
                     case "ConnectionString":
                         WriteVerbose("Connect using connection string.");
-                        //if access token is present in sql connection, use IUniversalAuthProvider and remove the access token from the connection string
-                        DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder();
+                        //if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string
                         dbConnectionStringBuilder.ConnectionString = ConnectionString;
                         if (dbConnectionStringBuilder.ContainsKey("access token")) {
                             var accessToken = dbConnectionStringBuilder["access token"].ToString();
@@ -68,8 +69,8 @@ namespace PsDac
 
                     case "DataSource":
                             WriteVerbose("Connect using datasource."); 
-                            ConnectionString = $"Server=\"{ DataSource }\"";                    
-                            Service = new DacServices(connectionString: ConnectionString);
+                            dbConnectionStringBuilder.Add("data source", DataSource);                
+                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString);
                             break;
                 }
                

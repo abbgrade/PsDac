@@ -17,11 +17,6 @@ Connects a database instance using DacServices.
 Connect-DacService [-ConnectionString] <String> [<CommonParameters>]
 ```
 
-### AccessToken
-```
-Connect-DacService [-ConnectionString] <String> -AccessToken <String> [<CommonParameters>]
-```
-
 ### DataSource
 ```
 Connect-DacService [-DataSource] <String> [<CommonParameters>]
@@ -48,7 +43,7 @@ The DataSource, Hostname or Instance must be specified as Server.
 
 ```yaml
 Type: String
-Parameter Sets: ConnectionString, AccessToken
+Parameter Sets: ConnectionString
 Aliases:
 
 Required: True
@@ -68,21 +63,6 @@ Aliases:
 
 Required: True
 Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -AccessToken
-Specifies the Access Token to use for connection in addition to the connection string
-
-```yaml
-Type: String
-Parameter Sets: AccessToken
-Aliases:
-
-Required: True
-Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
