@@ -42,6 +42,21 @@ CollationComparer : Microsoft.SqlServer.Dac.Model.SqlModelCollationComparer
 
 ## PARAMETERS
 
+### -DatabaseName
+Name of the source database
+
+```yaml
+Type: String
+Parameter Sets: Database
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -LoadAsScriptBackedModel
 {{ Fill LoadAsScriptBackedModel Description }}
 
@@ -85,21 +100,6 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -DatabaseName
-Name of the source database
-
-```yaml
-Type: String
-Parameter Sets: Database
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
