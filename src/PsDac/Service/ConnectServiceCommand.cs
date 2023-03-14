@@ -2,6 +2,7 @@ using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Management.Automation;
+using System.Data.Common;
 
 namespace PsDac
 {
@@ -28,27 +29,51 @@ namespace PsDac
         [ValidateNotNullOrEmpty()]
         public string DataSource { get; set; }
 
+        [Parameter(           
+            Position = 0,
+            Mandatory = false,
+            ValueFromPipelineByPropertyName = true)]
+        [ValidateNotNullOrEmpty()]
+
         internal static DacServices Service { get; set; }
+
+        public record class AcessTokenProvider(string Token) : IUniversalAuthProvider
+        {
+            public string GetValidAccessToken() => Token;
+        }
 
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
 
-            switch (ParameterSetName)
-            {
-                case "ConnectionString":
-                    WriteVerbose("Connect using connection string.");
-                    break;
-
-                case "DataSource":
-                    WriteVerbose("Connect using datasource.");
-                    ConnectionString = $"Server=\"{ DataSource }\"";
-                    break;
-            }
-
             try
             {
-                Service = new DacServices(connectionString: ConnectionString);
+                DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder();
+
+                switch (ParameterSetName)
+                {
+                    case "ConnectionString":
+                        WriteVerbose("Connect using connection string.");
+                        //if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string
+                        dbConnectionStringBuilder.ConnectionString = ConnectionString;
+                        if (dbConnectionStringBuilder.ContainsKey("access token")) {
+                            var accessToken = dbConnectionStringBuilder["access token"].ToString();
+                            dbConnectionStringBuilder.Remove("access token");
+                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString, new AcessTokenProvider(accessToken));
+                        }
+                        else {
+                            WriteVerbose("ohne access token");
+                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString);
+                        }
+                        break;
+
+                    case "DataSource":
+                            WriteVerbose("Connect using datasource."); 
+                            dbConnectionStringBuilder.Add("data source", DataSource);                
+                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString);
+                            break;
+                }
+               
             }
             catch (Exception ex)
             {
