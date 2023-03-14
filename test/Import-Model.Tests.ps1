@@ -15,6 +15,10 @@ Describe Import-Model {
             $Model = Import-DacModel -Path $DacPacFile
             $Model | Should -Not -BeNullOrEmpty
         }
+        It 'Imports the model from a DacPac by position' {
+            $Model = Import-DacModel $DacPacFile
+            $Model | Should -Not -BeNullOrEmpty
+        }
     }
 
 
