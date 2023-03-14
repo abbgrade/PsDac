@@ -12,7 +12,7 @@ Imports a model from a dacpac or a database.
 
 ## SYNTAX
 
-### File
+### File (Default)
 ```
 Import-DacModel [-Path] <FileInfo> [-ModelStorageType <DacSchemaModelStorageType>] [-LoadAsScriptBackedModel]
  [-Service <DacServices>] [<CommonParameters>]

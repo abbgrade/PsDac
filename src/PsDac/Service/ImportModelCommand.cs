@@ -6,7 +6,7 @@ using System.Management.Automation;
 
 namespace PsDac
 {
-    [Cmdlet(VerbsData.Import, "Model")]
+    [Cmdlet(VerbsData.Import, "Model", DefaultParameterSetName = PARAMETERSET_FILE)]
     [OutputType(typeof(TSqlModel))]
     public class ImportTSqlModelCommand : ClientCommand
     {
