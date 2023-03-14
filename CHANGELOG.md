@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added UpdateExisting to install command.
+- Added UpdateExisting switch to install command.
 - Added `Export-DacModel` command.
 - Added database option to import model or package from.
+- Added `New-SchemaComparison` command.
 
 ### Changed
 
