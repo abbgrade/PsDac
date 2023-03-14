@@ -12,14 +12,8 @@ Creates a Schema Comparison for two Dac Pacs
 
 ## SYNTAX
 
-### Standard
 ```
-New-DacSchemaComparison -Source <TSqlModel> -Target <TSqlModel> [<CommonParameters>]
-```
-
-### Extended
-```
-New-DacSchemaComparison -Source <TSqlModel> -Target <TSqlModel> -ExcludedObjectTypes <ObjectType[]>
+New-DacSchemaComparison -Source <TSqlModel> -Target <TSqlModel> [-ExcludedObjectTypes <ObjectType[]>]
  [<CommonParameters>]
 ```
 
@@ -40,11 +34,11 @@ Specifies the Object Types which should be ignored for the comparison
 
 ```yaml
 Type: ObjectType[]
-Parameter Sets: Extended
+Parameter Sets: (All)
 Aliases:
 Accepted values: Aggregates, ApplicationRoles, Assemblies, AssemblyFiles, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseOptions, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, Files, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseEncryptionKeys, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, MasterKeys, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers, ExternalStreams, ExternalStreamingJobs, DatabaseWorkloadGroups, WorkloadClassifiers, ExternalLibraries, ExternalLanguages
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
