@@ -1,10 +1,10 @@
-using System.Management.Automation;
+using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.Compare;
+using Microsoft.SqlServer.Dac.Model;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.SqlServer.Dac;
 using System.Linq;
-using Microsoft.SqlServer.Dac.Model;
+using System.Management.Automation;
 
 namespace PsDac
 {
@@ -12,35 +12,24 @@ namespace PsDac
     [OutputType(typeof(List<SchemaDifference>))]
     public class NewSchemaComparisonCommand : PSCmdlet
     {
-        const string PARAMETERSET_STANDARD = "Standard";
-        const string PARAMETERSET_EXTENDED = "Extended";
-
         [Parameter(
-            ParameterSetName = PARAMETERSET_STANDARD,
             Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
-        [Parameter(
-            ParameterSetName = PARAMETERSET_EXTENDED,
-            Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
+            ValueFromPipelineByPropertyName = true
+        )]
         [ValidateNotNullOrEmpty()]
         public TSqlModel Source { get; set; }
 
         [Parameter(
-            ParameterSetName = PARAMETERSET_STANDARD,
             Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
-        [Parameter(
-            ParameterSetName = PARAMETERSET_EXTENDED,
-            Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
+            ValueFromPipelineByPropertyName = true
+        )]
         [ValidateNotNullOrEmpty()]
         public TSqlModel Target { get; set; }
 
         [Parameter(
-            ParameterSetName = PARAMETERSET_EXTENDED,
-            Mandatory = true,
-            ValueFromPipelineByPropertyName = true)]
+            Mandatory = false,
+            ValueFromPipelineByPropertyName = true
+        )]
         public ObjectType[] ExcludedObjectTypes { get; set; }
 
 
@@ -67,16 +56,14 @@ namespace PsDac
 
             var excludedObjectTypes = comparison.Options.ExcludeObjectTypes;
 
-            switch (ParameterSetName)
+            if (ExcludedObjectTypes.Length > 0)
             {
-                case PARAMETERSET_EXTENDED:
-                    WriteVerbose("Use comparison with custom options.");
-                    foreach(ObjectType t in ExcludedObjectTypes)
-                    {
-                        excludedObjectTypes = excludedObjectTypes.Append(t).ToArray();
-                    }
-                    comparison.Options.ExcludeObjectTypes = excludedObjectTypes;
-                    break;
+                WriteVerbose("Use comparison with excluded object types.");
+                foreach(ObjectType t in ExcludedObjectTypes)
+                {
+                    excludedObjectTypes = excludedObjectTypes.Append(t).ToArray();
+                }
+                comparison.Options.ExcludeObjectTypes = excludedObjectTypes;
             }
 
             var result = comparison.Compare();
@@ -85,7 +72,6 @@ namespace PsDac
             File.Delete(targetPath);
 
             WriteObject(result.Differences);
-
         }
     }
 }
