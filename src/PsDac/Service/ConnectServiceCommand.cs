@@ -6,15 +6,15 @@ using System.Data.Common;
 
 namespace PsDac
 {
-    [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = ConnectionStringParameterSetName)]
+    [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = PARAMETERSET_CONNECTION_STRING)]
     [OutputType(typeof(DacServices))]
     public class ConnectServiceCommand : PSCmdlet
     {
-        const string ConnectionStringParameterSetName = "ConnectionString";
-        const string DataSourceParameterSetName = "DataSource";
+        const string PARAMETERSET_CONNECTION_STRING = "ConnectionString";
+        const string PARAMETERSET_PROPERTIES = "DataSource";
 
         [Parameter(
-            ParameterSetName = ConnectionStringParameterSetName,
+            ParameterSetName = PARAMETERSET_CONNECTION_STRING,
             Position = 0,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
@@ -22,22 +22,28 @@ namespace PsDac
         public string ConnectionString { get; set; }
 
         [Parameter(
-            ParameterSetName = DataSourceParameterSetName,
+            ParameterSetName = PARAMETERSET_PROPERTIES,
             Position = 0,
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
         public string DataSource { get; set; }
 
+        [Parameter(
+            ParameterSetName = PARAMETERSET_PROPERTIES,
+            Mandatory = false,
+            ValueFromPipelineByPropertyName = true)]
+        [ValidateNotNullOrEmpty()]
+        public string AccessToken { get; set; }
+
         [Parameter(           
             Position = 0,
             Mandatory = false,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-
         internal static DacServices Service { get; set; }
 
-        public record class AcessTokenProvider(string Token) : IUniversalAuthProvider
+        private record class AccessTokenProvider(string Token) : IUniversalAuthProvider
         {
             public string GetValidAccessToken() => Token;
         }
@@ -48,32 +54,38 @@ namespace PsDac
 
             try
             {
-                DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder();
-
                 switch (ParameterSetName)
                 {
                     case "ConnectionString":
                         WriteVerbose("Connect using connection string.");
-                        //if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string
-                        dbConnectionStringBuilder.ConnectionString = ConnectionString;
-                        if (dbConnectionStringBuilder.ContainsKey("access token")) {
-                            var accessToken = dbConnectionStringBuilder["access token"].ToString();
-                            dbConnectionStringBuilder.Remove("access token");
-                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString, new AcessTokenProvider(accessToken));
-                        }
-                        else {
-                            WriteVerbose("ohne access token");
-                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString);
-                        }
                         break;
 
                     case "DataSource":
-                            WriteVerbose("Connect using datasource."); 
-                            dbConnectionStringBuilder.Add("data source", DataSource);                
-                            Service = new DacServices(connectionString: dbConnectionStringBuilder.ConnectionString);
-                            break;
+                        WriteVerbose("Connect using properties.");
+                        DbConnectionStringBuilder reverseConnectionStringBuilder = new();
+                        reverseConnectionStringBuilder.Add("data source", DataSource);                
+                        if (!string.IsNullOrEmpty(AccessToken))
+                        {
+                            reverseConnectionStringBuilder.Add("access token", AccessToken);
+                        }
+                        ConnectionString = reverseConnectionStringBuilder.ConnectionString;
+                        break;
                 }
-               
+
+                //if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string
+                DbConnectionStringBuilder connectionStringBuilder = new();
+                connectionStringBuilder.ConnectionString = ConnectionString;
+                if (connectionStringBuilder.ContainsKey("access token"))
+                {
+                    var accessToken = connectionStringBuilder["access token"].ToString();
+                    connectionStringBuilder.Remove("access token");
+                    Service = new DacServices(connectionString: connectionStringBuilder.ConnectionString, new AccessTokenProvider(accessToken));
+                }
+                else
+                {
+                    Service = new DacServices(connectionString: connectionStringBuilder.ConnectionString);
+                }
+
             }
             catch (Exception ex)
             {

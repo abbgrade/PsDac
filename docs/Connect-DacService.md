@@ -19,7 +19,7 @@ Connect-DacService [-ConnectionString] <String> [<CommonParameters>]
 
 ### DataSource
 ```
-Connect-DacService [-DataSource] <String> [<CommonParameters>]
+Connect-DacService [-DataSource] <String> [-AccessToken <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,6 +36,21 @@ PS C:\> Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB'
 Creates a dac service for localdb.
 
 ## PARAMETERS
+
+### -AccessToken
+Specifies a token for authentication.
+
+```yaml
+Type: String
+Parameter Sets: DataSource
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
 
 ### -ConnectionString
 Specifies the connection string to use.
