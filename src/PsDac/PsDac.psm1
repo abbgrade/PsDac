@@ -20,6 +20,17 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
     }
     else {
         try {
+            # Microsoft.Data.SqlClient.dll expects Data.SqlClient.SNI.dll in the same directory - copy Data.SqlClient.SNI.dll before adding SqlClient
+            if ($RequiredAssemblyPath.Name -eq "Microsoft.Data.SqlClient.dll")
+            { 
+                $SNIPath = switch ($Env:PROCESSOR_ARCHITECTURE) 
+                {
+                    "AMD64" {"$PSScriptRoot\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll"}     
+                    "X86" {"$PSScriptRoot\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll"}
+                    "Arm" {"$PSScriptRoot\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll"}              
+                }
+                Copy-Item $SNIPath -Destination "$PSScriptRoot\runtimes\win\lib\netcoreapp3.1\" -Force
+            }
             Add-Type -Path $RequiredAssemblyPath
         }
         catch [System.IO.FileLoadException] {
