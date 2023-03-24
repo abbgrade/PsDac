@@ -20,6 +20,7 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
     }
     else {
         try {
+            # Microsoft.Data.SqlClient.dll expects Data.SqlClient.SNI.dll in the same directory - copy Data.SqlClient.SNI.dll before adding SqlClient
             if ($RequiredAssemblyPath.Name -eq "Microsoft.Data.SqlClient.dll")
             { 
                 $SNIPath = switch ($Env:PROCESSOR_ARCHITECTURE) 
