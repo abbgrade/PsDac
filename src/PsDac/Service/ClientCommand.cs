@@ -1,6 +1,8 @@
 using Microsoft.SqlServer.Dac;
 using System;
+using System.Collections.Concurrent;
 using System.Management.Automation;
+using System.Threading;
 
 namespace PsDac
 {
@@ -9,6 +11,9 @@ namespace PsDac
 
         [Parameter()]
         public DacServices Service { get; set; } = ConnectServiceCommand.Service;
+
+        private ConcurrentQueue<Object> OutputMessageQueue { get; set; } = new ConcurrentQueue<Object>();
+
 
         protected override void BeginProcessing()
         {
@@ -25,8 +30,62 @@ namespace PsDac
                     throw new PSArgumentNullException(nameof(Service), $"run Connect-DacService");
             }
             else
+            {
                 Service.Message += Service_Message;
+            }
         }
+
+        protected sealed override void ProcessRecord()
+        {
+            base.ProcessRecord();
+
+            var thread = new Thread(AsyncProcessRecord);
+            thread.Start();
+
+            // process message events while running
+            while (thread.ThreadState == ThreadState.Running)
+            {
+                OutputMessageQueue.TryDequeue(out var record);
+                if (record != null)
+                {
+                    ProcessOutputMessage(record);
+                } else
+                {
+                    Thread.Sleep(100);
+                }
+            }
+
+            thread.Join();
+
+            // process remaining message events after termination
+            while (OutputMessageQueue.Count > 0)
+            {
+                OutputMessageQueue.TryDequeue(out var record);
+                if (record != null)
+                {
+                    ProcessOutputMessage(record);
+                }
+            }
+        }
+
+        private void ProcessOutputMessage(object message)
+        {
+            switch (message)
+            {
+                case OutputRecord outputRecord:
+                    base.WriteObject(sendToPipeline: outputRecord.sendToPipeline); break;
+                case VerboseRecord verboseMessage:
+                    base.WriteVerbose(verboseMessage.text); break;
+                case WarningRecord warningMessage:
+                    base.WriteWarning(warningMessage.text); break;
+                case ErrorRecord errorRecord:
+                    base.WriteError(errorRecord); break;
+                default:
+                    throw new NotSupportedException($"{message.GetType()} is not supported.");
+            }
+        }
+
+        protected abstract void AsyncProcessRecord();
 
         protected override void EndProcessing()
         {
@@ -54,6 +113,8 @@ namespace PsDac
             }
         }
 
+        #region Error
+
         private void ProcessServiceError(DacMessageEventArgs e)
         {
             WriteError(new ErrorRecord(
@@ -64,10 +125,27 @@ namespace PsDac
             ));
         }
 
+        new protected void WriteError(ErrorRecord errorRecord)
+        {
+            OutputMessageQueue.Enqueue(errorRecord);
+        }
+
+        #endregion
+        #region Warning
+
         private void ProcessServiceWarning(DacMessageEventArgs e)
         {
             WriteWarning($"SQL{e.Message.Number}: {e.Message.Message}");
         }
+
+        new protected void WriteWarning(string text)
+        {
+            OutputMessageQueue.Enqueue(new WarningRecord(text));
+        }
+        private record WarningRecord(string text);
+
+        #endregion
+        #region Verbose
 
         private void ProcessServiceMessage(DacMessageEventArgs e)
         {
@@ -82,5 +160,24 @@ namespace PsDac
             }
 
         }
+
+        new protected void WriteVerbose(string text)
+        {
+            OutputMessageQueue.Enqueue( new VerboseRecord(text) );
+        }
+
+        private record VerboseRecord(string text);
+
+        #endregion
+        #region Output
+
+        new protected void WriteObject(Object sendToPipeline)
+        {
+            OutputMessageQueue.Enqueue( new OutputRecord(sendToPipeline) );
+        }
+
+        private record OutputRecord (object sendToPipeline);
+
+        #endregion
     }
 }

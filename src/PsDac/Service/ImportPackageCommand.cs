@@ -62,10 +62,8 @@ namespace PsDac
             }
         }
 
-        protected override void ProcessRecord()
+        protected override void AsyncProcessRecord()
         {
-            base.ProcessRecord();
-
             DacPackage package = null;
 
             switch (ParameterSetName)

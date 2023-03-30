@@ -51,10 +51,8 @@ namespace PsDac
             }
         }
 
-        protected override void ProcessRecord()
+        protected override void AsyncProcessRecord()
         {
-            base.ProcessRecord();
-
             TSqlModel model = null;
 
             switch (ParameterSetName)

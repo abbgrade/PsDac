@@ -29,10 +29,8 @@ namespace PsDac
         [Parameter()]
         public ObjectType[] ExcludeObjectTypes { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void AsyncProcessRecord()
         {
-            base.ProcessRecord();
-
             var options = new DacDeployOptions();
             options.ExcludeObjectTypes = ExcludeObjectTypes;
             Service.Deploy(package: Package, targetDatabaseName: DatabaseName, upgradeExisting: UpgradeExisting.IsPresent, options: options);
