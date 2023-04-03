@@ -77,8 +77,11 @@
             "type": "shell",
             "command": "Invoke-Pester",
             "options": {
-                "cwd": "test"
+                "cwd": "${workspaceFolder}/test"
             },
+            "args": [
+                "-ExcludeTag", "NotImplemented"
+            ],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,

@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://abbgrade.github.io/PsDac/Get-DacPartitionFunction.html
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Get-DacPartitionFunction [-Model] <TSqlModel> [[-Name] <String>] [<CommonParamet
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> {{ Add example code here }}
 ```
 
@@ -66,14 +66,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlModel
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.Model.TSqlObject
-
 ## NOTES
 
 ## RELATED LINKS
 
 [TSqlObject](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlobject)
+
 [TSqlModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.model.tsqlmodel)
+

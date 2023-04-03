@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version:
+online version: https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices
 schema: 2.0.0
 ---
 
@@ -19,7 +19,7 @@ Connect-DacService [-ConnectionString] <String> [<CommonParameters>]
 
 ### DataSource
 ```
-Connect-DacService [-DataSource] <String> [<CommonParameters>]
+Connect-DacService [-DataSource] <String> [-AccessToken <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,13 +29,28 @@ Unfortunately, the parameters are not checked while connecting, but while usage.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB'
 ```
 
 Creates a dac service for localdb.
 
 ## PARAMETERS
+
+### -AccessToken
+Specifies a token for authentication.
+
+```yaml
+Type: String
+Parameter Sets: DataSource
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
 
 ### -ConnectionString
 Specifies the connection string to use.
@@ -54,7 +69,7 @@ Accept wildcard characters: False
 ```
 
 ### -DataSource
-Specifies the datasource aka. server name to connect to.
+Specifies the datasource or server name to connect to.
 
 ```yaml
 Type: String
@@ -74,13 +89,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String
-
 ## OUTPUTS
 
 ### Microsoft.SqlServer.Dac.DacServices
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+

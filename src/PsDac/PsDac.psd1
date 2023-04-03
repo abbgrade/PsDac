@@ -9,10 +9,10 @@
 @{
 
     # Script module or binary module file associated with this manifest.
-    RootModule = 'PsDac.dll'
+    RootModule = 'PsDac.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.2.0'
+    ModuleVersion = '1.3.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -33,7 +33,7 @@
     Description = 'PsDac connects DacFx and PowerShell. It gives you PowerShell Cmdlets with the power of Microsoft.SqlServer.DacFx.'
 
     # Minimum version of the PowerShell engine required by this module
-    PowerShellVersion = '5.0'
+    PowerShellVersion = '7.2.10'
 
     # Name of the PowerShell host required by this module
     # PowerShellHostName = ''
@@ -42,7 +42,7 @@
     # PowerShellHostVersion = ''
 
     # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-    # DotNetFrameworkVersion = ''
+    # DotNetFrameworkVersion = 'net6.0'
 
     # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
     # ClrVersion = ''
@@ -66,7 +66,7 @@
     # FormatsToProcess = @()
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-    # NestedModules = @()
+    NestedModules = @('PsDac.dll')
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = '*'
@@ -78,7 +78,7 @@
                    'Get-ScalarFunction', 'Get-Schema', 'Get-Table',
                    'Get-TableValuedFunction', 'Get-View', 'Import-Model', 'Import-Package',
                    'Install-Package', 'New-CreateScript', 'Remove-Schema', 'Set-Package',
-                   'Test-Model'
+                   'Test-Model', 'Export-Model', 'New-SchemaComparison'
 
     # Variables to export from this module
     # VariablesToExport = @()
@@ -113,7 +113,7 @@
             LicenseUri = 'https://github.com/abbgrade/PsDac/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/abbgrade/PsDac'
+            ProjectUri = 'https://abbgrade.github.io/PsDac/'
 
             # A URL to an icon representing this module.
             # IconUri = ''

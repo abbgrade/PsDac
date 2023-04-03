@@ -4,20 +4,25 @@ param (
     [System.IO.FileInfo] $DacPacFile = "$PsScriptRoot\sql-server-samples\samples\databases\wide-world-importers\wwi-ssdt\wwi-ssdt\bin\Debug\WideWorldImporters.dacpac"
 )
 
-Describe Import-Model {
+Describe Export-Model {
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
     }
 
     Context DacPac -Skip:( -Not $DacPacFile.Exists ) {
-        It 'Imports the model from a DacPac' {
-            $Model = Import-DacModel -Path $DacPacFile
-            $Model | Should -Not -BeNullOrEmpty
-        }
-        It 'Imports the model from a DacPac by position' {
-            $Model = Import-DacModel $DacPacFile
-            $Model | Should -Not -BeNullOrEmpty
+
+        Context Model {
+            BeforeAll {
+                $Model = Import-DacModel -Path $DacPacFile
+            }
+
+            It 'Exports to dacpac' {
+                $file = New-TemporaryFile
+                Remove-Item $file
+                Export-DacModel -Model $Model -Path $file
+                $file | Should -Exist
+            }
         }
     }
 
@@ -54,9 +59,17 @@ Describe Import-Model {
                     $Database | Remove-SqlTestDatabase
                 }
 
-                It 'Extracts from the database' {
-                    $Model = Import-DacModel -DatabaseName $Database.Name -ErrorAction Stop
-                    $Model | Should -Not -BeNullOrEmpty
+                Context Model {
+                    BeforeAll {
+                        $Model = Import-DacModel -DatabaseName $Database.Name -ErrorAction Stop
+                    }
+
+                    It 'Exports to dacpac' {
+                        $file = New-TemporaryFile
+                        Remove-Item $file
+                        Export-DacModel -Model $Model -Path $file
+                        $file | Should -Exist
+                    }
                 }
             }
         }

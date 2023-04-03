@@ -1,7 +1,7 @@
 ---
 external help file: PsDac.dll-Help.xml
 Module Name: PsDac
-online version: https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage
+online version: https://abbgrade.github.io/PsDac/Install-DacPackage.html
 schema: 2.0.0
 ---
 
@@ -13,8 +13,8 @@ Installs the package content to a database.
 ## SYNTAX
 
 ```
-Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-ExcludeObjectTypes <ObjectType[]>]
- [-Service <DacServices>] [<CommonParameters>]
+Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-UpgradeExisting]
+ [-ExcludeObjectTypes <ObjectType[]>] [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Executes the Deploy operation from DacFx.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> Connect-DacService -DataSource '(LocalDb)\MSSQLLocalDB'
 PS C:\> Install-DacPackage ./myDb.dacpac -DatabaseName myDb
 ```
@@ -54,7 +54,7 @@ List of ObjectType, that must not be installed.
 Type: ObjectType[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Aggregates, ApplicationRoles, Assemblies, AssemblyFiles, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseOptions, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, Files, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseEncryptionKeys, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, MasterKeys, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers
+Accepted values: Aggregates, ApplicationRoles, Assemblies, AssemblyFiles, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseOptions, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, Files, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseEncryptionKeys, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, MasterKeys, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers, ExternalStreams, ExternalStreamingJobs, DatabaseWorkloadGroups, WorkloadClassifiers, ExternalLibraries, ExternalLanguages
 
 Required: False
 Position: Named
@@ -79,7 +79,8 @@ Accept wildcard characters: False
 ```
 
 ### -Service
-Specifies the server to install the package to. Default is the latest connected service.
+Specifies the server to install the package to.
+Default is the latest connected service.
 
 ```yaml
 Type: DacServices
@@ -93,23 +94,38 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UpgradeExisting
+{{ Fill upgradeExisting Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### Microsoft.SqlServer.Dac.DacPackage
-
 ### System.String
-
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 
 ## RELATED LINKS
 
 [DacPackage](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacpackage)
+
 [DacServices](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.dacservices)
+
 [ObjectType](https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dac.objecttype)
+

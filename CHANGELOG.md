@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-03-14
+
+### Added
+
+- Added UpdateExisting switch to install command.
+- Added `Export-DacModel` command.
+- Added database option to import model or package from.
+- Added `New-SchemaComparison` command.
+
+### Changed
+
+- Updated powershell version.
+
+### Fixed
+
+- Exception when write powershell output in thread.
+
 ## [1.2.0] - 2022-07-30
 
 ### Added
