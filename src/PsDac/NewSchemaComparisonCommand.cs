@@ -56,7 +56,7 @@ namespace PsDac
 
             var excludedObjectTypes = comparison.Options.ExcludeObjectTypes;
 
-            if (ExcludedObjectTypes.Length > 0)
+            if (ExcludedObjectTypes != null && ExcludedObjectTypes.Length > 0)
             {
                 WriteVerbose("Use comparison with excluded object types.");
                 foreach(ObjectType t in ExcludedObjectTypes)
