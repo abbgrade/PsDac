@@ -8,10 +8,16 @@ namespace PsDac
 {
     [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = PARAMETERSET_CONNECTION_STRING)]
     [OutputType(typeof(DacServices))]
-    public class ConnectServiceCommand : PSCmdlet
+    public partial class ConnectServiceCommand : PSCmdlet
     {
+        #region ParameterSets
         const string PARAMETERSET_CONNECTION_STRING = "ConnectionString";
-        const string PARAMETERSET_PROPERTIES = "DataSource";
+        const string PARAMETERSET_PROPERTIES = "Properties";
+        #endregion
+
+        private DbConnectionStringBuilder connectionStringBuilder = new DbConnectionStringBuilder();
+
+        #region Parameters
 
         [Parameter(
             ParameterSetName = PARAMETERSET_CONNECTION_STRING,
@@ -19,7 +25,17 @@ namespace PsDac
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public string ConnectionString { get; set; }
+        public string ConnectionString
+        {
+            get
+            {
+                return connectionStringBuilder.ConnectionString;
+            }
+            set
+            {
+                connectionStringBuilder.ConnectionString = value;
+            }
+        }
 
         [Parameter(
             ParameterSetName = PARAMETERSET_PROPERTIES,
@@ -27,26 +43,54 @@ namespace PsDac
             Mandatory = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public string DataSource { get; set; }
+        public string DataSource
+        {
+            get
+            {
+                connectionStringBuilder.TryGetValue(DATA_SOURCE_CONNECTION_STRING_SEGMENT, out var value);
+                return value?.ToString();
+            }
+            set
+            {
+                if (value != null)
+                    connectionStringBuilder.Add(DATA_SOURCE_CONNECTION_STRING_SEGMENT, value);
+                else
+                    connectionStringBuilder.Remove(DATA_SOURCE_CONNECTION_STRING_SEGMENT);
+            }
+        }
 
         [Parameter(
             ParameterSetName = PARAMETERSET_PROPERTIES,
             Mandatory = false,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public string AccessToken { get; set; }
+        public string AccessToken
+        {
+            get
+            {
+                connectionStringBuilder.TryGetValue(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT, out var value);
+                return value?.ToString();
+            }
+            set
+            {
+                if (value != null)
+                    connectionStringBuilder.Add(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT, value);
+                else
+                    connectionStringBuilder.Remove(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT);
+            }
+        }
 
-        [Parameter(           
+        [Parameter(
             Position = 0,
             Mandatory = false,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
         internal static DacServices Service { get; set; }
 
-        private record class AccessTokenProvider(string Token) : IUniversalAuthProvider
-        {
-            public string GetValidAccessToken() => Token;
-        }
+        #endregion
+
+        const string ACCESS_TOKEN_CONNECTION_STRING_SEGMENT = "access token";
+        const string DATA_SOURCE_CONNECTION_STRING_SEGMENT = "data source";
 
         protected override void ProcessRecord()
         {
@@ -54,38 +98,41 @@ namespace PsDac
 
             try
             {
-                switch (ParameterSetName)
-                {
-                    case "ConnectionString":
-                        WriteVerbose("Connect using connection string.");
-                        break;
+                IUniversalAuthProvider authProvider = null;
 
-                    case "DataSource":
-                        WriteVerbose("Connect using properties.");
-                        DbConnectionStringBuilder reverseConnectionStringBuilder = new();
-                        reverseConnectionStringBuilder.Add("data source", DataSource);                
-                        if (!string.IsNullOrEmpty(AccessToken))
-                        {
-                            reverseConnectionStringBuilder.Add("access token", AccessToken);
-                        }
-                        ConnectionString = reverseConnectionStringBuilder.ConnectionString;
-                        break;
+                // if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string.
+                if (AccessToken != null)
+                {
+                    authProvider = new PreparedAccessTokenAuthProvider(AccessToken);
+                    AccessToken = null;
                 }
 
-                //if access token is present in connection string, use IUniversalAuthProvider and remove the access token from the connection string
-                DbConnectionStringBuilder connectionStringBuilder = new();
-                connectionStringBuilder.ConnectionString = ConnectionString;
-                if (connectionStringBuilder.ContainsKey("access token"))
+                // if the server seems to be an azure sql server, use the azure token provider.
+                else if (DataSource.EndsWith("database.windows.net"))
                 {
-                    var accessToken = connectionStringBuilder["access token"].ToString();
-                    connectionStringBuilder.Remove("access token");
-                    Service = new DacServices(connectionString: connectionStringBuilder.ConnectionString, new AccessTokenProvider(accessToken));
+                    WriteVerbose("Connect to Azure SQL Server.");
+                    authProvider = new AzureAuthProvider("https://database.windows.net");
                 }
+
+                // else use defaults.
                 else
                 {
-                    Service = new DacServices(connectionString: connectionStringBuilder.ConnectionString);
+                    WriteVerbose("Connect to Microsoft SQL Server.");
                 }
 
+                // if present, use an auth provider.
+                if (authProvider != null)
+                {
+                    WriteVerbose("Authenticate with token.");
+                    Service = new DacServices(connectionString: ConnectionString, authProvider: authProvider);
+                }
+
+                // else use defaults.
+                else
+                {
+                    WriteVerbose("Authenticate without token.");
+                    Service = new DacServices(connectionString: ConnectionString);
+                }
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.0.0' }, @{ ModuleName='PsSqlClient'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSmo'; ModuleVersion='0.4.0' }, @{ ModuleName='PsSqlTestServer'; ModuleVersion='1.2.0' }, @{ ModuleName='PsSqlLocalDb'; ModuleVersion='0.4.0' }
 
 Describe Connect-Service {
 
@@ -9,7 +9,7 @@ Describe Connect-Service {
     Context TestDatabase {
 
         BeforeAll {
-            $TestServer = New-SqlTestInstance
+            $TestServer = New-SqlTestInstance -ErrorAction Stop
         }
 
         AfterAll {
