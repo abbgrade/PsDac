@@ -14,10 +14,10 @@ Connects a database instance using DacServices.
 
 ### ConnectionString (Default)
 ```
-Connect-DacService [-ConnectionString] <String> [<CommonParameters>]
+Connect-DacService [-ConnectionString] <String> [-AccessToken <String>] [<CommonParameters>]
 ```
 
-### DataSource
+### Properties
 ```
 Connect-DacService [-DataSource] <String> [-AccessToken <String>] [<CommonParameters>]
 ```
@@ -42,7 +42,7 @@ Specifies a token for authentication.
 
 ```yaml
 Type: String
-Parameter Sets: DataSource
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -73,7 +73,7 @@ Specifies the datasource or server name to connect to.
 
 ```yaml
 Type: String
-Parameter Sets: DataSource
+Parameter Sets: Properties
 Aliases:
 
 Required: True
