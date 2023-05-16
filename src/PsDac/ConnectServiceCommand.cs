@@ -47,15 +47,11 @@ namespace PsDac
         {
             get
             {
-                connectionStringBuilder.TryGetValue(DATA_SOURCE_CONNECTION_STRING_SEGMENT, out var value);
-                return value?.ToString();
+                return connectionStringBuilder.DataSource;
             }
             set
             {
-                if (value != null)
-                    connectionStringBuilder.Add(DATA_SOURCE_CONNECTION_STRING_SEGMENT, value);
-                else
-                    connectionStringBuilder.Remove(DATA_SOURCE_CONNECTION_STRING_SEGMENT);
+                connectionStringBuilder.DataSource = value;
             }
         }
 
@@ -63,22 +59,12 @@ namespace PsDac
             ParameterSetName = PARAMETERSET_PROPERTIES,
             Mandatory = false,
             ValueFromPipelineByPropertyName = true)]
+        [Parameter(
+            ParameterSetName = PARAMETERSET_CONNECTION_STRING,
+            Mandatory = false,
+            ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public string AccessToken
-        {
-            get
-            {
-                connectionStringBuilder.TryGetValue(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT, out var value);
-                return value?.ToString();
-            }
-            set
-            {
-                if (value != null)
-                    connectionStringBuilder.Add(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT, value);
-                else
-                    connectionStringBuilder.Remove(ACCESS_TOKEN_CONNECTION_STRING_SEGMENT);
-            }
-        }
+        public string AccessToken { get; set; }
 
         [Parameter(
             Position = 0,
@@ -88,9 +74,6 @@ namespace PsDac
         internal static DacServices Service { get; set; }
 
         #endregion
-
-        const string ACCESS_TOKEN_CONNECTION_STRING_SEGMENT = "access token";
-        const string DATA_SOURCE_CONNECTION_STRING_SEGMENT = "data source";
 
         protected override void ProcessRecord()
         {

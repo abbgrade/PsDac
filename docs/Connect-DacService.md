@@ -14,7 +14,7 @@ Connects a database instance using DacServices.
 
 ### ConnectionString (Default)
 ```
-Connect-DacService [-ConnectionString] <String> [<CommonParameters>]
+Connect-DacService [-ConnectionString] <String> [-AccessToken <String>] [<CommonParameters>]
 ```
 
 ### Properties
@@ -42,7 +42,7 @@ Specifies a token for authentication.
 
 ```yaml
 Type: String
-Parameter Sets: Properties
+Parameter Sets: (All)
 Aliases:
 
 Required: False

@@ -67,7 +67,6 @@ Describe Connect-Service {
             BeforeAll {
                 $TestServerWithToken = $TestServer.PsObject.Copy()
                 $TestServerWithToken | Add-Member AccessToken ( Get-AzAccessToken -ResourceUrl https://database.windows.net ).Token
-                $TestServerWithToken.ConnectionString += ";Access Token=" + $TestServer.AccessToken
             }
 
             It 'Creates a service by datasource' {
@@ -76,7 +75,7 @@ Describe Connect-Service {
             }
 
             It 'Creates a service by connection string' {
-                $Service = Connect-DacService -ConnectionString $TestServerWithToken.ConnectionString -ErrorAction Stop
+                $Service = Connect-DacService -ConnectionString $TestServerWithToken.ConnectionString -AccessToken $TestServerWithToken.AccessToken -ErrorAction Stop
                 $Service | Should -Not -BeNullOrEmpty
             }
 
