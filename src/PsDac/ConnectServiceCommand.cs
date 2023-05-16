@@ -2,20 +2,20 @@ using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Management.Automation;
-using System.Data.Common;
+using Microsoft.Data.SqlClient;
 
 namespace PsDac
 {
     [Cmdlet(VerbsCommunications.Connect, "Service", DefaultParameterSetName = PARAMETERSET_CONNECTION_STRING)]
     [OutputType(typeof(DacServices))]
-    public partial class ConnectServiceCommand : PSCmdlet
+    public class ConnectServiceCommand : PSCmdlet
     {
         #region ParameterSets
         const string PARAMETERSET_CONNECTION_STRING = "ConnectionString";
         const string PARAMETERSET_PROPERTIES = "Properties";
         #endregion
 
-        private DbConnectionStringBuilder connectionStringBuilder = new DbConnectionStringBuilder();
+        private SqlConnectionStringBuilder connectionStringBuilder = new ();
 
         #region Parameters
 
