@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The access token in the `Connect-Service` command cannot be within the connection string but is an optional parameter.
+- Connecting to a azure sql server without a access token, will aquire a new token.
+
 ## [1.3.0] - 2023-03-14
 
 ### Added

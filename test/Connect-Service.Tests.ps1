@@ -4,7 +4,6 @@ Describe Connect-Service {
 
     BeforeAll {
         Import-Module $PSScriptRoot\..\publish\PsDac\PsDac.psd1 -ErrorAction Stop
-        $VerbosePreference = 'Continue'
     }
 
     Context TestDatabase {
