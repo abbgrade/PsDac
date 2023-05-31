@@ -15,10 +15,7 @@ namespace PsDac
         private ConcurrentQueue<Object> OutputMessageQueue { get; set; } = new ConcurrentQueue<Object>();
 
 
-        protected override void BeginProcessing()
-        {
-            BeginProcessing(serviceRequired: false);
-        }
+        protected override abstract void BeginProcessing();
 
         protected void BeginProcessing(bool serviceRequired)
         {
@@ -39,7 +36,7 @@ namespace PsDac
         {
             base.ProcessRecord();
 
-            var thread = new Thread(AsyncProcessRecord);
+            var thread = new Thread(AsyncProcessRecordWithoutException);
             thread.Start();
 
             // process message events while running
@@ -49,7 +46,8 @@ namespace PsDac
                 if (record != null)
                 {
                     ProcessOutputMessage(record);
-                } else
+                }
+                else
                 {
                     Thread.Sleep(100);
                 }
@@ -58,7 +56,7 @@ namespace PsDac
             thread.Join();
 
             // process remaining message events after termination
-            while (OutputMessageQueue.Count > 0)
+            while (!OutputMessageQueue.IsEmpty)
             {
                 OutputMessageQueue.TryDequeue(out var record);
                 if (record != null)
@@ -73,11 +71,11 @@ namespace PsDac
             switch (message)
             {
                 case OutputRecord outputRecord:
-                    base.WriteObject(sendToPipeline: outputRecord.sendToPipeline); break;
+                    base.WriteObject(sendToPipeline: outputRecord.SendToPipeline); break;
                 case VerboseRecord verboseMessage:
-                    base.WriteVerbose(verboseMessage.text); break;
+                    base.WriteVerbose(verboseMessage.Text); break;
                 case WarningRecord warningMessage:
-                    base.WriteWarning(warningMessage.text); break;
+                    base.WriteWarning(warningMessage.Text); break;
                 case ErrorRecord errorRecord:
                     base.WriteError(errorRecord); break;
                 default:
@@ -86,6 +84,18 @@ namespace PsDac
         }
 
         protected abstract void AsyncProcessRecord();
+
+        private void AsyncProcessRecordWithoutException()
+        {
+            try
+            {
+                AsyncProcessRecord();
+            }
+            catch (Exception ex)
+            {
+                WriteError(new ErrorRecord(ex, null, ErrorCategory.NotSpecified, null));
+            }
+        }
 
         protected override void EndProcessing()
         {
@@ -142,7 +152,7 @@ namespace PsDac
         {
             OutputMessageQueue.Enqueue(new WarningRecord(text));
         }
-        private record WarningRecord(string text);
+        private record WarningRecord(string Text);
 
         #endregion
         #region Verbose
@@ -158,25 +168,24 @@ namespace PsDac
                     WriteVerbose($"SQL{e.Message.Number}: {e.Message.Message}");
                     break;
             }
-
         }
 
         new protected void WriteVerbose(string text)
         {
-            OutputMessageQueue.Enqueue( new VerboseRecord(text) );
+            OutputMessageQueue.Enqueue(new VerboseRecord(text));
         }
 
-        private record VerboseRecord(string text);
+        private record VerboseRecord(string Text);
 
         #endregion
         #region Output
 
-        new protected void WriteObject(Object sendToPipeline)
+        new protected void WriteObject(object sendToPipeline)
         {
-            OutputMessageQueue.Enqueue( new OutputRecord(sendToPipeline) );
+            OutputMessageQueue.Enqueue(new OutputRecord(sendToPipeline));
         }
 
-        private record OutputRecord (object sendToPipeline);
+        private record OutputRecord(object SendToPipeline);
 
         #endregion
     }

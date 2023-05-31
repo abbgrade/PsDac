@@ -14,7 +14,7 @@ Installs the package content to a database.
 
 ```
 Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-UpgradeExisting]
- [-ExcludeObjectTypes <ObjectType[]>] [-DoNotDropObjectTypes <ObjectType[]>] [-BlockOnPossibleDataLoss]
+ [-ExcludeObjectTypes <ObjectType[]>] [-DoNotDropObjectTypes <ObjectType[]>] [-AcceptPossibleDataLoss]
  [-Variables <Hashtable>] [-CommandTimeout <Int32>] [-LongRunningCommandTimeout <Int32>]
  [-DatabaseLockTimeout <Int32>] [-DropConstraintsNotInSource] [-DropDmlTriggersNotInSource]
  [-DropExtendedPropertiesNotInSource] [-DropIndexesNotInSource] [-DropObjectsNotInSource]
@@ -110,21 +110,6 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -BlockOnPossibleDataLoss
-{{ Fill BlockOnPossibleDataLoss Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -314,6 +299,21 @@ Accept wildcard characters: False
 
 ```yaml
 Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AcceptPossibleDataLoss
+{{ Fill AcceptPossibleDataLoss Description }}
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

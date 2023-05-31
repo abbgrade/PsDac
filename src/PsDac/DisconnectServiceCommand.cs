@@ -12,6 +12,11 @@ namespace PsDac
         [Parameter( ValueFromPipeline = true )]
         public new DacServices Service { get; set; } = ConnectServiceCommand.Service;
 
+        protected override void BeginProcessing()
+        {
+            BeginProcessing(serviceRequired: true);
+        }
+
         protected override void AsyncProcessRecord()
         {
             if (ConnectServiceCommand.Service == Service)
