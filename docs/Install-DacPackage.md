@@ -14,7 +14,12 @@ Installs the package content to a database.
 
 ```
 Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-UpgradeExisting]
- [-ExcludeObjectTypes <ObjectType[]>] [-Service <DacServices>] [<CommonParameters>]
+ [-ExcludeObjectTypes <ObjectType[]>] [-DoNotDropObjectTypes <ObjectType[]>] [-BlockOnPossibleDataLoss]
+ [-Variables <Hashtable>] [-CommandTimeout <Int32>] [-LongRunningCommandTimeout <Int32>]
+ [-DatabaseLockTimeout <Int32>] [-DropConstraintsNotInSource] [-DropDmlTriggersNotInSource]
+ [-DropExtendedPropertiesNotInSource] [-DropIndexesNotInSource] [-DropObjectsNotInSource]
+ [-DropPermissionsNotInSource] [-DropRoleMembersNotInSource] [-DropStatisticsNotInSource]
+ [-Service <DacServices>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -105,6 +110,216 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -BlockOnPossibleDataLoss
+{{ Fill BlockOnPossibleDataLoss Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CommandTimeout
+{{ Fill CommandTimeout Description }}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DatabaseLockTimeout
+{{ Fill DatabaseLockTimeout Description }}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DoNotDropObjectTypes
+{{ Fill DoNotDropObjectTypes Description }}
+
+```yaml
+Type: ObjectType[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropConstraintsNotInSource
+{{ Fill DropConstraintsNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropDmlTriggersNotInSource
+{{ Fill DropDmlTriggersNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropExtendedPropertiesNotInSource
+{{ Fill DropExtendedPropertiesNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropIndexesNotInSource
+{{ Fill DropIndexesNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropObjectsNotInSource
+{{ Fill DropObjectsNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropPermissionsNotInSource
+{{ Fill DropPermissionsNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropRoleMembersNotInSource
+{{ Fill DropRoleMembersNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DropStatisticsNotInSource
+{{ Fill DropStatisticsNotInSource Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LongRunningCommandTimeout
+{{ Fill LongRunningCommandTimeout Description }}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Variables
+{{ Fill Variables Description }}
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
