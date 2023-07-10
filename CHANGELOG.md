@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2023-05-31
+
 ### Changed
 
 - The access token in the `Connect-Service` command cannot be within the connection string but is an optional parameter.
