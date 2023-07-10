@@ -53,7 +53,7 @@ namespace PsDac
             switch (ParameterSetName)
             {
                 case PARAMETERSET_DATABASE:
-                    base.BeginProcessing();
+                    base.BeginProcessing(serviceRequired:true);
                     break;
 
                 default:
@@ -69,7 +69,7 @@ namespace PsDac
             switch (ParameterSetName)
             {
                 case PARAMETERSET_DATABASE:
-                    using (MemoryStream packageStream = new MemoryStream()) {
+                    using (MemoryStream packageStream = new()) {
                         Service.Extract(
                             packageStream: packageStream,
                             databaseName: DatabaseName,

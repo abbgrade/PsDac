@@ -42,7 +42,7 @@ namespace PsDac
             switch (ParameterSetName)
             {
                 case PARAMETERSET_DATABASE:
-                    base.BeginProcessing();
+                    base.BeginProcessing(serviceRequired: true);
                     break;
 
                 default:
