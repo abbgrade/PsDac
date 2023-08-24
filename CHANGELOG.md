@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2023-08-24
+
+### Changed
+
+- Added verbose output to import dacpac and install dacpac.
+
 ## [1.5.0] - 2023-05-31
 
 ### Changed
