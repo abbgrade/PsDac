@@ -142,6 +142,7 @@ namespace PsDac
 
         protected override void AsyncProcessRecord()
         {
+            WriteVerbose($"Install dacpac '{Package.Name}' v{Package.Version} to [{DatabaseName}]");
             Service.Deploy(package: Package, targetDatabaseName: DatabaseName, upgradeExisting: UpgradeExisting.IsPresent, options: DeployOptions);
         }
     }

@@ -69,7 +69,10 @@ namespace PsDac
             switch (ParameterSetName)
             {
                 case PARAMETERSET_DATABASE:
-                    using (MemoryStream packageStream = new()) {
+                    using (MemoryStream packageStream = new())
+                    {
+
+                        WriteVerbose($"Import dacpac from database [{DatabaseName}].");
                         Service.Extract(
                             packageStream: packageStream,
                             databaseName: DatabaseName,
@@ -91,6 +94,7 @@ namespace PsDac
                         throw new ArgumentException($"Path does not exist.", Path.FullName);
                     }
 
+                    WriteVerbose($"Import dacpac from file '{Path.FullName}'.");
                     package = DacPackage.Load(
                         fileName: Path.FullName,
                         modelStorageType: DacSchemaModelStorageType.Memory,
