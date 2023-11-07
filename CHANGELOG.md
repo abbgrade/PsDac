@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Added support for views to `Get-DacColumn` command.
+- Updated Microsoft.SqlServer.DacFx to 162.0.52.
+- Updated System.Management.Automation to 7.2.13.
 
 ## [1.6.0] - 2023-08-24
 
