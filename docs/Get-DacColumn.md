@@ -13,7 +13,7 @@ Returns columns of a table or view.
 ## SYNTAX
 
 ```
-Get-DacColumn [-Object] <TSqlObject> [[-Name] <String>] [<CommonParameters>]
+Get-DacColumn -Object <TSqlObject> [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,6 +38,7 @@ Schema  Name                               ObjectType
 ------  ----                               ----------
 Website [Website].[Customers].[CustomerID] Microsoft.SqlServer.Dac.Model.ModelTypeClass
 ```
+
 ## PARAMETERS
 
 ### -Name
@@ -65,7 +66,7 @@ Parameter Sets: (All)
 Aliases: Table
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
