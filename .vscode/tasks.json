@@ -89,5 +89,20 @@
             },
             "dependsOn": ["Build", "Create Testdata"]
         },
+        {
+            "label": "Test exclude AzureSql",
+            "group": "test",
+            "type": "shell",
+            "command": "Invoke-Pester -Configuration @{ Filter = @{ ExcludeTag = 'AzureSql' }}",
+            "options": {
+                "cwd": "test"
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": false,
+                "showReuseMessage": false
+            },
+            "dependsOn": ["Build"]
+        },
     ]
 }
