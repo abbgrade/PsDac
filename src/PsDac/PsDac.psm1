@@ -29,9 +29,11 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
                         X86 { 'win-x86' }
                         Arm { 'win-arm' }
                     }
-                    $NativeDllTargetDirectory = "$PSScriptRoot/runtimes/win/lib/net6.0"
-                    if ( -Not ( Test-Path "$NativeDllTargetDirectory/Microsoft.Data.SqlClient.SNI.dll" ) ) {
-                        Copy-Item "$PSScriptRoot/runtimes/$Runtime/native/Microsoft.Data.SqlClient.SNI.dll" -Destination $NativeDllTargetDirectory
+                    if ( $Runtime ) {
+                        $NativeDllTargetDirectory = "$PSScriptRoot/runtimes/win/lib/net6.0"
+                        if ( -Not ( Test-Path "$NativeDllTargetDirectory/Microsoft.Data.SqlClient.SNI.dll" ) ) {
+                            Copy-Item "$PSScriptRoot/runtimes/$Runtime/native/Microsoft.Data.SqlClient.SNI.dll" -Destination $NativeDllTargetDirectory
+                        }
                     }
                 }
 
