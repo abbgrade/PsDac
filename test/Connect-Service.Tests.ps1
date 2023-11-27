@@ -34,7 +34,7 @@ Describe Connect-Service {
         }
     }
 
-    Context AzureSqlServer -Tag Azure {
+    Context AzureSqlServer -Tag AzureSql {
 
         BeforeAll {
             $TestServer = New-SqlTestAzureInstance -Subscription 'Visual Studio' -ErrorAction Stop
