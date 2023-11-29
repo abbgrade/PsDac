@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced AppAuthentication by Azure.Identity.
+
 ## [1.7.0] - 2023-11-27
 
 ### Changed
