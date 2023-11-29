@@ -1,5 +1,6 @@
+using Azure.Core;
+using Azure.Identity;
 using Microsoft.SqlServer.Dac;
-using Microsoft.Azure.Services.AppAuthentication;
 
 namespace PsDac
 {
@@ -14,7 +15,9 @@ namespace PsDac
 
         public string GetValidAccessToken()
         {
-            return new AzureServiceTokenProvider().GetAccessTokenAsync(resource: Resource).Result;
+            return new DefaultAzureCredential().GetToken(
+                new TokenRequestContext(scopes: new string[] { Resource + "/.default" }) { }
+            ).Token;
         }
     }
 }
