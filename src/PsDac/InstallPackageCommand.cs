@@ -59,6 +59,18 @@ namespace PsDac
             }
         }
 
+        [Parameter()]
+        public SwitchParameter IgnoreWithNocheckOnForeignKeys
+        {
+            set { DeployOptions.IgnoreWithNocheckOnForeignKeys = value.IsPresent;  }
+        }
+
+        [Parameter()]
+        public SwitchParameter IgnoreWithNocheckOnCheckConstraints
+        {
+            set { DeployOptions.IgnoreWithNocheckOnCheckConstraints  = value.IsPresent;  }
+        }
+
         #region Timeouts
 
         [Parameter()]
