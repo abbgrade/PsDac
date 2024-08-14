@@ -71,6 +71,12 @@ namespace PsDac
             set { DeployOptions.IgnoreWithNocheckOnCheckConstraints  = value.IsPresent;  }
         }
 
+        [Parameter()]
+        public SwitchParameter SkipNewConstraintValidation
+        {
+            set { DeployOptions.ScriptNewConstraintValidation = !value.IsPresent; }
+        }
+
         #region Timeouts
 
         [Parameter()]

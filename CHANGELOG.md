@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `Install-Package` parameter for IgnoreWithNocheckOnCheckConstraints and IgnoreWithNocheckOnForeignKeys.
+- Added `Install-Package` parameter for IgnoreWithNocheckOnCheckConstraints, IgnoreWithNocheckOnForeignKeys and ScriptNewConstraintValidation.
 
 ## [1.6.0] - 2023-08-24
 
