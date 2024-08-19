@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ develop, bugfix/*, feature/*, release/* ]
+    branches: [ develop, bugfix/*, feature/*, release/*, hotfix/* ]
   pull_request:
     branches: [ develop ]
 

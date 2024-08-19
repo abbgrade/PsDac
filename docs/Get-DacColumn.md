@@ -8,12 +8,12 @@ schema: 2.0.0
 # Get-DacColumn
 
 ## SYNOPSIS
-Returns columns of a table.
+Returns columns of a table or view.
 
 ## SYNTAX
 
 ```
-Get-DacColumn [-Table] <TSqlObject> [[-Name] <String>] [<CommonParameters>]
+Get-DacColumn -Object <TSqlObject> [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,6 +28,15 @@ PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacTable -Name '
 Schema      Name                            ObjectType
 ------      ----                            ----------
 Application [Application].[Cities].[CityID] Microsoft.SqlServer.Dac.Model.ModelTypeClass
+```
+
+### Example 2
+```
+PS C:\> Import-DacModel -Path ./WideWorldImporters.dacpac | Get-DacView -Name '[Website].[Customers]' | Get-DacColumn -Name '[Website].[Customers].[CustomerID]'
+
+Schema  Name                               ObjectType
+------  ----                               ----------
+Website [Website].[Customers].[CustomerID] Microsoft.SqlServer.Dac.Model.ModelTypeClass
 ```
 
 ## PARAMETERS
@@ -47,17 +56,17 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Table
-Specifies the table to get the columns from.
-The ObjectType must be Table.
+### -Object
+Specifies the table or view to get the columns from.
+The ObjectType must be Table or View.
 
 ```yaml
 Type: TSqlObject
 Parameter Sets: (All)
-Aliases:
+Aliases: Table
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False

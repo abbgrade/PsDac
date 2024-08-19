@@ -7,13 +7,14 @@ namespace PsDac
     [OutputType(typeof(TSqlObject))]
     public class GetColumnCommand : PSCmdlet
     {
+        [Alias("Table")]
         [Parameter(
             Position = 0,
             Mandatory = true,
             ValueFromPipeline = true,
             ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty()]
-        public TSqlObject Table { get; set; }
+        public TSqlObject Object { get; set; }
 
         [Parameter(
             Position = 1,
@@ -25,8 +26,8 @@ namespace PsDac
         {
             base.ProcessRecord();
 
-            if (Table.ObjectType.Name != "Table") {
-                throw new System.ArgumentException("Invalid Table type", Table.ObjectType.Name);
+            if (Object.ObjectType.Name != "Table" && Object.ObjectType.Name != "View") {
+                throw new System.ArgumentException("Invalid Table or View type", Object.ObjectType.Name);
             }
 
             bool hasNameFilter = Name != null;
@@ -34,7 +35,9 @@ namespace PsDac
                 WriteVerbose($"Filter columns on name '{Name}'");
             }
 
-            foreach (var item in Table.GetReferencedRelationshipInstances(Microsoft.SqlServer.Dac.Model.Table.Columns, DacQueryScopes.Default)) {
+            var relationship = Object.ObjectType.Name == "Table" ? Microsoft.SqlServer.Dac.Model.Table.Columns : Microsoft.SqlServer.Dac.Model.View.Columns;
+
+            foreach (var item in Object.GetReferencedRelationshipInstances(relationship, DacQueryScopes.Default)) {
                 if ( ( !hasNameFilter || item.ObjectName.ToString() == Name ))
                 {
                     var result = new PSObject(item.Object);
