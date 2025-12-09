@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated System.Management.Automation and PowerShellVersion to 7.4.
+- Updated TargetFramework to net8.0.
+
 ## [1.7.0] - 2024-08-13
 
 ### Changed
