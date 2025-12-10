@@ -14,13 +14,14 @@ Imports the package from a dacpac or a database.
 
 ### File
 ```
-Import-DacPackage [-Path] <FileInfo> [-Access <FileAccess>] [-Service <DacServices>] [<CommonParameters>]
+Import-DacPackage [-Path] <FileInfo> [-Access <FileAccess>] [-Service <DacServices>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Database
 ```
 Import-DacPackage [-DatabaseName <String>] -ApplicationName <String> -ApplicationVersion <Version>
- [-Service <DacServices>] [<CommonParameters>]
+ [-Service <DacServices>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -122,6 +123,21 @@ Default is the latest connected service.
 Type: DacServices
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

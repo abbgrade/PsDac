@@ -13,7 +13,8 @@ Updates the model of a package.
 ## SYNTAX
 
 ```
-Set-DacPackage [-Package] <DacPackage> [-Model] <TSqlModel> [-IgnoreCode <Int32[]>] [<CommonParameters>]
+Set-DacPackage [-Package] <DacPackage> [-Model] <TSqlModel> [-IgnoreCode <Int32[]>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -72,6 +73,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

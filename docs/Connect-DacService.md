@@ -14,12 +14,14 @@ Connects a database instance using DacServices.
 
 ### ConnectionString (Default)
 ```
-Connect-DacService [-ConnectionString] <String> [-AccessToken <String>] [<CommonParameters>]
+Connect-DacService [-ConnectionString] <String> [-AccessToken <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### Properties
 ```
-Connect-DacService [-DataSource] <String> [-AccessToken <String>] [<CommonParameters>]
+Connect-DacService [-DataSource] <String> [-AccessToken <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,6 +82,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

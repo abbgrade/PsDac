@@ -13,7 +13,8 @@ Returns columns of a table or view.
 ## SYNTAX
 
 ```
-Get-DacColumn -Object <TSqlObject> [[-Name] <String>] [<CommonParameters>]
+Get-DacColumn [-Object] <TSqlObject> [[-Name] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -66,9 +67,24 @@ Parameter Sets: (All)
 Aliases: Table
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

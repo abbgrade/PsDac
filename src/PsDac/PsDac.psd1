@@ -33,7 +33,7 @@
     Description = 'PsDac connects DacFx and PowerShell. It gives you PowerShell Cmdlets with the power of Microsoft.SqlServer.DacFx.'
 
     # Minimum version of the PowerShell engine required by this module
-    PowerShellVersion = '7.2.16'
+    PowerShellVersion = '7.4'
 
     # Name of the PowerShell host required by this module
     # PowerShellHostName = ''

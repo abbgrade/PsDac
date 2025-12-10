@@ -13,7 +13,8 @@ Gets the schemas of a model.
 ## SYNTAX
 
 ```
-Get-DacSchema [-Model] <TSqlModel> [[-Name] <String>] [-Scope <DacQueryScopes>] [<CommonParameters>]
+Get-DacSchema [-Model] <TSqlModel> [[-Name] <String>] [-Scope <DacQueryScopes>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -70,6 +71,21 @@ Type: DacQueryScopes
 Parameter Sets: (All)
 Aliases:
 Accepted values: None, UserDefined, BuiltIn, Default, SameDatabase, System, All
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named
