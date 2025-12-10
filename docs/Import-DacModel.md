@@ -15,13 +15,13 @@ Imports a model from a dacpac or a database.
 ### File (Default)
 ```
 Import-DacModel [-Path] <FileInfo> [-ModelStorageType <DacSchemaModelStorageType>] [-LoadAsScriptBackedModel]
- [-Service <DacServices>] [<CommonParameters>]
+ [-Service <DacServices>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Database
 ```
 Import-DacModel [-DatabaseName <String>] [-ModelStorageType <DacSchemaModelStorageType>]
- [-LoadAsScriptBackedModel] [-Service <DacServices>] [<CommonParameters>]
+ [-LoadAsScriptBackedModel] [-Service <DacServices>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -111,6 +111,21 @@ Default is the latest connected service.
 Type: DacServices
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

@@ -15,11 +15,12 @@ Installs the package content to a database.
 ```
 Install-DacPackage [-Package] <DacPackage> -DatabaseName <String> [-UpgradeExisting]
  [-ExcludeObjectTypes <ObjectType[]>] [-DoNotDropObjectTypes <ObjectType[]>] [-AcceptPossibleDataLoss]
- [-Variables <Hashtable>] [-CommandTimeout <Int32>] [-LongRunningCommandTimeout <Int32>]
+ [-Variables <Hashtable>] [-IgnoreWithNocheckOnForeignKeys] [-IgnoreWithNocheckOnCheckConstraints]
+ [-SkipNewConstraintValidation] [-CommandTimeout <Int32>] [-LongRunningCommandTimeout <Int32>]
  [-DatabaseLockTimeout <Int32>] [-DropConstraintsNotInSource] [-DropDmlTriggersNotInSource]
  [-DropExtendedPropertiesNotInSource] [-DropIndexesNotInSource] [-DropObjectsNotInSource]
  [-DropPermissionsNotInSource] [-DropRoleMembersNotInSource] [-DropStatisticsNotInSource]
- [-Service <DacServices>] [<CommonParameters>]
+ [-Service <DacServices>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -315,6 +316,66 @@ Accept wildcard characters: False
 
 ```yaml
 Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IgnoreWithNocheckOnCheckConstraints
+{{ Fill IgnoreWithNocheckOnCheckConstraints Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IgnoreWithNocheckOnForeignKeys
+{{ Fill IgnoreWithNocheckOnForeignKeys Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SkipNewConstraintValidation
+{{ Fill SkipNewConstraintValidation Description }}
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
