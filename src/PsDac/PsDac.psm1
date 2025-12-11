@@ -5,7 +5,7 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
     "$PSScriptRoot/Azure.Identity.dll",
     "$PSScriptRoot/Microsoft.Identity.Client.dll",
     "$PSScriptRoot/Microsoft.SqlServer.Server.dll",
-    "$PSScriptRoot/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll"
+    "$PSScriptRoot/runtimes/win/lib/net8.0/Microsoft.Data.SqlClient.dll"
     ) | ForEach-Object {
         [System.IO.FileInfo] $RequiredAssemblyPath = $_
         If ( -not $RequiredAssemblyPath.Exists ) {
@@ -30,7 +30,7 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
                         Arm { 'win-arm' }
                     }
                     if ( $Runtime ) {
-                        $NativeDllTargetDirectory = "$PSScriptRoot/runtimes/win/lib/net6.0"
+                        $NativeDllTargetDirectory = "$PSScriptRoot/runtimes/win/lib/net8.0"
                         if ( -Not ( Test-Path "$NativeDllTargetDirectory/Microsoft.Data.SqlClient.SNI.dll" ) ) {
                             Copy-Item "$PSScriptRoot/runtimes/$Runtime/native/Microsoft.Data.SqlClient.SNI.dll" -Destination $NativeDllTargetDirectory
                         }
