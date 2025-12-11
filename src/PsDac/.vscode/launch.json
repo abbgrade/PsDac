@@ -10,7 +10,7 @@
                 "-NoExit",
                 "-NoProfile",
                 "-Command",
-                "Import-Module ${workspaceFolder}/bin/Debug/net6.0/publish/PsDac.psd1",
+                "Import-Module ${workspaceFolder}/bin/Debug/net8.0/publish/PsDac.psd1",
             ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
