@@ -28,6 +28,7 @@ $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
                         AMD64 { 'win-x64' }
                         X86 { 'win-x86' }
                         Arm { 'win-arm' }
+                        default { throw "Processor architecture $_ is not supported" }
                     }
                     if ( $Runtime ) {
                         $NativeDllTargetDirectory = "$PSScriptRoot/runtimes/win/lib/net8.0"
