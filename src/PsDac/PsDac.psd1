@@ -12,7 +12,7 @@
     RootModule = 'PsDac.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.7.0'
+    ModuleVersion = '1.8.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -33,7 +33,7 @@
     Description = 'PsDac connects DacFx and PowerShell. It gives you PowerShell Cmdlets with the power of Microsoft.SqlServer.DacFx.'
 
     # Minimum version of the PowerShell engine required by this module
-    PowerShellVersion = '7.2.16'
+    PowerShellVersion = '7.4'
 
     # Name of the PowerShell host required by this module
     # PowerShellHostName = ''
@@ -42,7 +42,7 @@
     # PowerShellHostVersion = ''
 
     # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-    # DotNetFrameworkVersion = 'net6.0'
+    # DotNetFrameworkVersion = 'net8.0'
 
     # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
     # ClrVersion = ''

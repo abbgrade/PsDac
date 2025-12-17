@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2025-12-11
+
+### Changed
+
+- Updated System.Management.Automation and PowerShellVersion to 7.4.
+- Updated TargetFramework to net8.0.
+- Updated Microsoft.SqlServer.DacFx to 170.2.70.
+- Updated Microsoft.Data.SqlClient to 5.2.3.
+- Updated Azure.Identity to 1.13.0.
+
 ## [1.7.0] - 2024-08-13
 
 ### Changed
