@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2025-12-11
+
 ### Changed
 
 - Updated System.Management.Automation and PowerShellVersion to 7.4.
