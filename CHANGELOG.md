@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.1] - 2025-12-18
+
+### Changed
+
+- Updated Azure.Core to 1.45.0 for compatibility with Az v14.
+
 ## [1.8.0] - 2025-12-11
 
 ### Changed
