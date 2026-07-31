@@ -50,7 +50,17 @@ task UpdateReleaseWorkflow {
     Out-File $file -NoNewline
 }
 
-task UpdateWorkflows -Jobs UpdateValidationWorkflow, UpdatePagesWorkflow, UpdatePreReleaseWorkflow, UpdateReleaseWorkflow
+task UpdateReleaseHotfixWorkflow {
+    requires ModuleName
+    [System.IO.FileInfo] $file = "$PSScriptRoot\..\.github\workflows\release-hotfix.yml"
+    New-Item -Type Directory $file.Directory -ErrorAction SilentlyContinue
+    Invoke-WebRequest `
+        -Uri "https://raw.githubusercontent.com/abbgrade/PsBuildTasks/$PsBuildTaskBranch/GitHub/release-hotfix-windows.yml" |
+    ForEach-Object { $_ -replace 'MyModuleName', $ModuleName } |
+    Out-File $file -NoNewline
+}
+
+task UpdateWorkflows -Jobs UpdateValidationWorkflow, UpdatePagesWorkflow, UpdatePreReleaseWorkflow, UpdateReleaseWorkflow, UpdateReleaseHotfixWorkflow
 
 #endregion
 #region GitHub Pages

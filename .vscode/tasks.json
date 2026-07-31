@@ -58,20 +58,6 @@
             "problemMatcher": []
         },
         {
-            "label": "Create Testdata",
-            "group": "build",
-            "type": "shell",
-            "command": "Invoke-Build",
-            "args": [
-                "Testdata.Create"
-            ],
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "echo": false,
-                "showReuseMessage": false
-            }
-        },
-        {
             "label": "Test",
             "group": "test",
             "type": "shell",
@@ -79,30 +65,12 @@
             "options": {
                 "cwd": "${workspaceFolder}/test"
             },
-            "args": [
-                "-ExcludeTag", "NotImplemented"
-            ],
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": false,
                 "showReuseMessage": false
             },
-            "dependsOn": ["Build", "Create Testdata"]
-        },
-        {
-            "label": "Test exclude AzureSql",
-            "group": "test",
-            "type": "shell",
-            "command": "Invoke-Pester -Configuration @{ Filter = @{ ExcludeTag = 'AzureSql' }}",
-            "options": {
-                "cwd": "test"
-            },
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "echo": false,
-                "showReuseMessage": false
-            },
-            "dependsOn": ["Build"]
-        },
+            "dependsOn": "Build"
+        }
     ]
 }
