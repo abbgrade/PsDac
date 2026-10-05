@@ -1,9 +1,6 @@
 $LoadedAssemblies = [System.AppDomain]::CurrentDomain.GetAssemblies()
 
 @(
-    "$PSScriptRoot/Azure.Core.dll",
-    "$PSScriptRoot/Azure.Identity.dll",
-    "$PSScriptRoot/Microsoft.Identity.Client.dll",
     "$PSScriptRoot/Microsoft.SqlServer.Server.dll",
     "$PSScriptRoot/runtimes/win/lib/net8.0/Microsoft.Data.SqlClient.dll"
     ) | ForEach-Object {
