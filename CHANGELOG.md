@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Azure.Identity to 1.21.0 for compatibility with Az v16.2.0
 - removed Microsoft.Azure.Services.AppAuthentication
 - `AzureAuthProvider.cs`: Removed legacy `AzureServiceTokenProvider` dependency and replace with `DefaultAzureCredential` from `Azure.Identity`
-- `PsDac.psm1`: Remove explicit preload if Azure assemblies (could conflict with versions already loaded by Az modules)
 
 ## [1.8.1] - 2025-12-18
 
