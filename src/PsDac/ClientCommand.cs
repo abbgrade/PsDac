@@ -12,6 +12,8 @@ namespace PsDac
         [Parameter()]
         public DacServices Service { get; set; } = ConnectServiceCommand.Service;
 
+        private readonly CancellationTokenSource cancellationTokenSource = new();
+
         private ConcurrentQueue<Object> OutputMessageQueue { get; set; } = new ConcurrentQueue<Object>();
 
 
@@ -95,6 +97,13 @@ namespace PsDac
             {
                 WriteError(new ErrorRecord(ex, null, ErrorCategory.NotSpecified, null));
             }
+        }
+
+        protected override void StopProcessing()
+        {
+            base.StopProcessing();
+            WriteWarning($"{MyInvocation.MyCommand.Name} was aborted by the user.");
+            cancellationTokenSource.Cancel(throwOnFirstException: true);
         }
 
         protected override void EndProcessing()

@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Dac.Model;
 using System;
 using System.Management.Automation;
 using Microsoft.Data.SqlClient;
+using System.Threading;
 
 namespace PsDac
 {
@@ -16,6 +17,7 @@ namespace PsDac
         #endregion
 
         private SqlConnectionStringBuilder connectionStringBuilder = new ();
+        private readonly CancellationTokenSource cancellationTokenSource = new();
 
         #region Parameters
 
@@ -94,7 +96,7 @@ namespace PsDac
                 else if (DataSource.EndsWith("database.windows.net"))
                 {
                     WriteVerbose("Connect to Azure SQL Server.");
-                    authProvider = new AzureAuthProvider("https://database.windows.net");
+                    authProvider = new AzureAuthProvider("https://database.windows.net", cancellationTokenSource.Token);
                 }
 
                 // else use defaults.
@@ -128,6 +130,12 @@ namespace PsDac
             }
 
             WriteObject(Service);
+        }
+
+        protected override void StopProcessing()
+        {
+            base.StopProcessing();
+            cancellationTokenSource.Cancel();
         }
     }
 }
