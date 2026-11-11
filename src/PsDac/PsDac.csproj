@@ -10,7 +10,7 @@
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.3" />
     <PackageReference Include="Microsoft.SqlServer.DacFx" Version="170.2.70" />
-    <PackageReference Include="System.Management.Automation" Version="7.4.0" />
+    <PackageReference Include="System.Management.Automation" Version="7.7.0" />
   </ItemGroup>
 
   <ItemGroup>
